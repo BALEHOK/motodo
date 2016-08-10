@@ -1,14 +1,14 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { autoRehydrate } from 'redux-persist'
-import createLogger from 'redux-logger'
-import rootReducer from '../Reducers/'
-import Config from '../Config/DebugSettings'
-import createSagaMiddleware from 'redux-saga'
-import sagas from '../Sagas/'
-import R from 'ramda'
-import Reactotron from 'reactotron'
-import RehydrationServices from '../Services/RehydrationServices'
-import ReduxPersist from '../Config/ReduxPersist'
+import { createStore, applyMiddleware, compose } from 'redux';
+import { autoRehydrate } from 'redux-persist';
+import createLogger from 'redux-logger';
+import rootReducer from '../Reducers/RootReducer';
+import Config from '../Config/DebugSettings';
+import createSagaMiddleware from 'redux-saga';
+import sagas from '../Sagas/';
+import R from 'ramda';
+import Reactotron from 'reactotron';
+import RehydrationServices from '../Services/RehydrationServices';
+import ReduxPersist from '../Config/ReduxPersist';
 
 // the logger master switch
 const USE_LOGGING = Config.reduxLogging
@@ -60,7 +60,7 @@ export default () => {
   }
 
   // run sagas
-  sagaMiddleware.run(sagas)
+  // sagaMiddleware.run(sagas)
 
   return store
 }
