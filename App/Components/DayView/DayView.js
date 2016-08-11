@@ -1,10 +1,9 @@
-import styles from '../Styles/DayViewStyle';
+import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { View, Text, ListView } from 'react-native';
+import { View, ListView } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import AlertMessage from '../../Components/AlertMessageComponent';
 import DayItem from './DayItem';
@@ -19,8 +18,8 @@ export default class DayView extends React.Component {
     super(props);
 
     // Set up our two placeholder values for scrollToBottom()
-    this.listHeight = 0
-    this.footerY = 0
+    this.listHeight = 0;
+    this.footerY = 0;
 
     const rowHasChanged = (r1, r2) => r1 !== r2;
 
@@ -84,11 +83,11 @@ export default class DayView extends React.Component {
 
   // When the footer is laid out, store its y-position
   onFooterLayout = (event) => {
-    const layout = event.nativeEvent.layout
-    this.footerY = layout.y
+    const layout = event.nativeEvent.layout;
+    this.footerY = layout.y;
   }
 
-  onNew(index) {
+  onNew() {
     NavigationActions.addItem();
   }
 

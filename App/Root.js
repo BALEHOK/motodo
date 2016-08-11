@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import Actions from './Actions/SharedActionCreators';
+import * as appActions from './Actions/AppActionCreators';
 import DebugSettings from './Config/DebugSettings';
 import NavigationRouter from './Navigation/NavigationRouter';
 // import './Config/PushConfig'
@@ -15,12 +15,12 @@ export default class Root extends React.Component {
   }
 
   componentWillMount () {
-    const { dispatch } = this.props.store
-    dispatch(Actions.startup())
+    const { dispatch } = this.props.store;
+    dispatch(appActions.startup());
   }
 
-  renderApp () {
-    console.disableYellowBox = !DebugSettings.yellowBox
+  render () {
+    console.disableYellowBox = !DebugSettings.yellowBox;
     return (
       <Provider store={this.props.store}>
         <View style={styles.applicationView}>
@@ -30,10 +30,6 @@ export default class Root extends React.Component {
           <NavigationRouter />
         </View>
       </Provider>
-    )
-  }
-
-  render () {
-    return this.renderApp()
+    );
   }
 }

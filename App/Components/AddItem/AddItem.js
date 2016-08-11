@@ -9,7 +9,7 @@ import {
   LayoutAnimation
 } from 'react-native';
 import { connect } from 'react-redux';
-import Styles from '../Styles/AddItemStyle';
+import Styles from './Styles/AddItemStyle';
 // import Actions from '../Actions/AddItemActionCreators';
 import { Metrics } from '../../Themes';
 

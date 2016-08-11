@@ -1,5 +1,5 @@
 import Reducer from './BaseReducer';
-import * as actions from '../Actions/Actions';
+import * as types from '../Actions/Types';
 
 import DayItemModel from '../Models/DayItemModel';
 
@@ -25,7 +25,7 @@ class DayViewReducer extends Reducer {
     this.defaultState = { items: [] };
 
     this.actionMap = {
-      [actions.fetchItems]: 'fetchItems'
+      [types.fetchItems]: 'fetchItems'
     }
   }
 
