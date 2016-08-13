@@ -10,13 +10,16 @@ function createDayItem(name) {
   return item;
 }
 
-const items = [
-  createDayItem('First Title'),
-  createDayItem('Second Title'),
-  createDayItem('Third Title'),
-  createDayItem('Fourth Title'),
-  createDayItem('Fifth Title')
-];
+function getItems(date) {
+  var dateString = date.toDateString();
+  return [
+    createDayItem(`First Title (${dateString})`),
+    createDayItem(`Second Title (${dateString})`),
+    createDayItem(`Third Title (${dateString})`),
+    createDayItem(`Fourth Title (${dateString})`),
+    createDayItem(`Fifth Title (${dateString})`)
+  ];
+}
 
 class DayViewReducer extends Reducer {
   constructor() {
@@ -31,7 +34,7 @@ class DayViewReducer extends Reducer {
 
   fetchItems(state, action) {
     return Object.assign({}, state, {
-      items: items
+      items: getItems(action.date)
     });
   }
 }

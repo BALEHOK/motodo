@@ -1,4 +1,4 @@
 import * as types from './Types';
 
-export const fetchItems = (date = new Date()) =>
+export const fetchItems = (date) =>
   ({ type: types.fetchItems, date });

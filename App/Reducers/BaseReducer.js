@@ -12,21 +12,21 @@ export default class Reducer {
     if (this.defaultFn) {
       return (state = reducer.defaultState, action) => {
         var handlerName = reducer.actionMap[action.type];
-        if (!!handlerName) {
+        if (handlerName) {
           return reducer[handlerName](state, action);
         }
 
         return reducer.defaultFn(state, action);
-      }
+      };
     }
 
     return (state = reducer.defaultState, action) => {
       var handlerName = reducer.actionMap[action.type];
-      if (!!handlerName) {
+      if (handlerName) {
         return reducer[handlerName](state, action);
       }
 
       return state;
-    }
+    };
   }
 }

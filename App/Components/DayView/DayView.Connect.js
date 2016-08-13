@@ -4,6 +4,7 @@ import * as ActionCreators from '../../Actions/DayViewActionCreators';
 
 const mapStateToProps = (state) => {
   return {
+    date: state.app.date,
     items: state.dayView.items
   };
 };

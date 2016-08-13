@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import * as appActions from './Actions/AppActionCreators';
 import DebugSettings from './Config/DebugSettings';
 import NavigationRouter from './Navigation/NavigationRouter';
-// import './Config/PushConfig'
 
 // Styles
 import styles from './Components/Shared/Styles/RootStyle';
