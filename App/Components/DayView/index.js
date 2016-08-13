@@ -1,1 +1,2 @@
-export default './DayView.connect'
+import DayView from './DayView.Connect';
+export default DayView;

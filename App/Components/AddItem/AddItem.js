@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, {PropTypes} from 'react';
 import {
   View,
   ScrollView,
@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Styles from './Styles/AddItemStyle';
-// import Actions from '../Actions/AddItemActionCreators';
 import { Metrics } from '../../Themes';
 
 class AddItem extends React.Component {
   static propTypes = {
+    defaultDate: PropTypes.object
   };
 
   constructor (props) {
@@ -87,7 +87,7 @@ class AddItem extends React.Component {
               value={ !!state.importance } />
           </View>
       </ScrollView>
-    )
+    );
   }
 
 }
@@ -102,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddItem)
+export default connect(mapStateToProps, mapDispatchToProps)(AddItem);

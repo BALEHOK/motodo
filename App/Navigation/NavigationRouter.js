@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import Styles from './Styles/NavigationContainerStyle';
 import NavigationDrawer from './NavigationDrawer';
-import DayView from '../Components/DayView/DayView.Connect';
+import DayView from '../Components/DayView';
 import AddItem from '../Components/AddItem';
 
 // screens identified by the router
@@ -22,8 +22,8 @@ class NavigationRouter extends Component {
           </Scene>
         </Scene>
       </Router>
-    )
+    );
   }
 }
 
-export default NavigationRouter
+export default NavigationRouter;
