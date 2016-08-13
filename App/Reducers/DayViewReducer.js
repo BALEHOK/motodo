@@ -26,7 +26,7 @@ class DayViewReducer extends Reducer {
 
     this.actionMap = {
       [types.fetchItems]: 'fetchItems'
-    }
+    };
   }
 
   fetchItems(state, action) {

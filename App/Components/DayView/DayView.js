@@ -5,14 +5,14 @@ import { View, ListView } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
 
-import AlertMessage from '../../Components/AlertMessageComponent';
+import AlertMessage from '../Shared/AlertMessageComponent';
 import DayItem from './DayItem';
 
 export default class DayView extends React.Component {
   static propTypes = {
     items: PropTypes.array.required,
     fetchItems: PropTypes.func.required
-  }
+  };
 
   constructor (props) {
     super(props);
@@ -45,40 +45,40 @@ export default class DayView extends React.Component {
   _renderRow (dayItem) {
     return (
       <DayItem item={dayItem} />
-    )
+    );
   }
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
   _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    return this.state.dataSource.getRowCount() === 0;
   }
 
   // Magical helper function that can scroll your ListView to the bottom
   scrollToBottom(animated = true) {
     if (this.listHeight && this.footerY && this.footerY > this.listHeight) {
       // Calculates the y scroll position inside the ListView
-      const scrollTo = this.footerY - this.listHeight
+      const scrollTo = this.footerY - this.listHeight;
 
       // Scroll that sucker!
       this.refs.listView.scrollTo({
         y: scrollTo,
         animated: animated,
-      })
+      });
     }
   }
 
   // Save the list's height when it renders
   onLayout = (event) => {
-    const layout = event.nativeEvent.layout
-    this.listHeight = layout.height
+    const layout = event.nativeEvent.layout;
+    this.listHeight = layout.height;
   }
 
   // Render a footer. Keep onFooterLayout if you decide to fill out this section
   renderFooter = () => {
     return (
       <View onLayout={this.onFooterLayout} />
-    )
+    );
   }
 
   // When the footer is laid out, store its y-position

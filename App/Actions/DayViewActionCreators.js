@@ -1,4 +1,4 @@
-import * as actions from './Actions';
+import * as types from './Types';
 
 export const fetchItems = (date = new Date()) =>
-  ({ type: actions.fetchItems, date })
+  ({ type: types.fetchItems, date });
