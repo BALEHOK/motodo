@@ -16,7 +16,13 @@ class NavigationRouter extends Component {
     return (
       <Router>
         <Scene key='drawer' component={NavigationDrawer}>
-          <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
+          <Scene key='drawerChildrenWrapper'
+            navigationBarStyle={Styles.navBar}
+            titleStyle={Styles.title}
+            leftButtonIconStyle={Styles.leftButton}
+            backButtonTextStyle={Styles.rightButton}
+            rightButtonTextStyle={Styles.rightButton}
+          >
             <Scene key='dayView' component={ DayView } title='Day view' initial />
             <Scene key='addItem' component={ AddItem } title='Add item' />
           </Scene>

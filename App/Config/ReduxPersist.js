@@ -10,6 +10,6 @@ const REDUX_PERSIST = {
     blacklist: persistentStoreBlacklist,
     transforms: [immutablePersistenceTransform]
   }
-}
+};
 
-export default REDUX_PERSIST
+export default REDUX_PERSIST;

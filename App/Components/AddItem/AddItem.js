@@ -8,11 +8,12 @@ import {
   Keyboard,
   LayoutAnimation
 } from 'react-native';
-import { connect } from 'react-redux';
+import Button from 'react-native-button';
+import { Actions as NavigationActions} from 'react-native-router-flux';
 import Styles from './Styles/AddItemStyle';
 import { Metrics } from '../../Themes';
 
-class AddItem extends React.Component {
+export default class AddItem extends React.Component {
   static propTypes = {
     defaultDate: PropTypes.object
   };
@@ -21,9 +22,20 @@ class AddItem extends React.Component {
     super(props);
     this.state = {
       uvisibleHeight: Metrics.screenHeight,
-      name: '',
-      importance: 0
+      item: {
+        name: '',
+        importance: 0
+      }
     };
+  }
+
+  saveItem = () => {
+    const item = this.state.item;
+    if (item.name !== '') {
+      this.props.addItem(item);
+    }
+
+    NavigationActions.pop();
   }
 
   componentWillMount () {
@@ -55,15 +67,21 @@ class AddItem extends React.Component {
     });
   }
 
-  handleChangeName = (text) =>
-    this.setState({ name: text })
+  handleChangeName = (text) => {
+    this.setItemState({ name: text });
+  }
 
-  handleChangeImportance = (value) =>
-    this.setState({ importance: value ? 1 : 0})
+  handleChangeImportance = (value) => {
+    this.setItemState({ importance: value ? 1 : 0});
+  }
+
+  setItemState(diff) {
+    this.setState({ item: Object.assign({}, this.state.item, diff) });
+  }
 
   render () {
     const textInputStyle = Styles.textInput;
-    const state = this.state;
+    const item = this.state.item;
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
           <View style={Styles.row}>
@@ -71,7 +89,7 @@ class AddItem extends React.Component {
             <TextInput
               ref='name'
               style={textInputStyle}
-              value={state.name}
+              value={item.name}
               keyboardType='default'
               returnKeyType='next'
               onChangeText={this.handleChangeName}
@@ -84,22 +102,13 @@ class AddItem extends React.Component {
             <Text style={Styles.rowLabel}>Important</Text>
             <Switch
               onValueChange={ this.handleChangeImportance }
-              value={ !!state.importance } />
+              value={ !!item.importance } />
+          </View>
+
+          <View style={Styles.row}>
+            <Button onPress={this.saveItem}>Save</Button>
           </View>
       </ScrollView>
     );
   }
-
 }
-
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddItem);

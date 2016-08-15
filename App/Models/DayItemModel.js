@@ -1,5 +1,3 @@
-/* @flow */
-
 export default class DayItemModel {
   id = undefined;
   done = undefined;
