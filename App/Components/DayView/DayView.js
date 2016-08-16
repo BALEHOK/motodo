@@ -40,10 +40,6 @@ export default class DayView extends React.Component {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(nextProps.items)
     });
-
-    if (this.props.date !== nextProps.date) {
-      this.props.fetchItems(nextProps.date);
-    }
   }
 
   _renderRow (dayItem) {

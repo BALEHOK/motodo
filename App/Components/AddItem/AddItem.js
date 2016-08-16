@@ -12,6 +12,7 @@ import Button from 'react-native-button';
 import { Actions as NavigationActions} from 'react-native-router-flux';
 import Styles from './Styles/AddItemStyle';
 import { Metrics } from '../../Themes';
+import DayItemModel from '../../Models/DayItemModel';
 
 export default class AddItem extends React.Component {
   static propTypes = {
@@ -22,11 +23,17 @@ export default class AddItem extends React.Component {
     super(props);
     this.state = {
       uvisibleHeight: Metrics.screenHeight,
-      item: {
-        name: '',
-        importance: 0
-      }
+      item: this.getDefaultItemModel()
     };
+  }
+
+  getDefaultItemModel() {
+    var itemModel = new DayItemModel();
+    itemModel.name = '';
+    itemModel.importance = 0;
+    itemModel.date = this.props.defaultDate;
+
+    return itemModel;
   }
 
   saveItem = () => {

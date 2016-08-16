@@ -9,7 +9,10 @@ class AppReducer extends Reducer {
   constructor() {
     super();
 
-    this.defaultState = { date: getTodayDate() };
+    this.defaultState = {
+      date: getTodayDate(),
+      view: 'day'
+    };
 
     this.actionMap = {
       [types.startup]: 'startup'

@@ -1,5 +1,4 @@
 import Reducer from './BaseReducer';
-import itemsRepository from '../Repositories/ItemsRepository';
 import * as types from '../Actions/Types';
 
 class DayViewReducer extends Reducer {
@@ -9,13 +8,13 @@ class DayViewReducer extends Reducer {
     this.defaultState = { items: [] };
 
     this.actionMap = {
-      [types.fetchItems]: 'fetchItems'
+      [types.itemsFetched]: 'itemsFetched'
     };
   }
 
-  fetchItems(state, action) {
+  itemsFetched(state, action) {
     return Object.assign({}, state, {
-      items: itemsRepository.getDayItems(action.date)
+      items: action.items
     });
   }
 }
