@@ -6,7 +6,8 @@ import {
   Switch,
   TextInput,
   Keyboard,
-  LayoutAnimation
+  LayoutAnimation,
+  DatePickerAndroid
 } from 'react-native';
 import Button from 'react-native-button';
 import { Actions as NavigationActions} from 'react-native-router-flux';
@@ -82,6 +83,18 @@ export default class AddItem extends React.Component {
     this.setItemState({ importance: value ? 1 : 0});
   }
 
+  showDatePicker = () => {
+    DatePickerAndroid.open({date: this.props.defaultDate})
+      .then(pickerResult => {
+        var {action, year, month, day} = pickerResult;
+        if (action !== DatePickerAndroid.dismissedAction) {
+          var date = new Date(year, month, day);
+          this.setItemState({date});
+        }
+      })
+      .catch(e => console.log(e));
+  }
+
   setItemState(diff) {
     this.setState({ item: Object.assign({}, this.state.item, diff) });
   }
@@ -110,6 +123,13 @@ export default class AddItem extends React.Component {
             <Switch
               onValueChange={ this.handleChangeImportance }
               value={ !!item.importance } />
+          </View>
+
+          <View style={Styles.row}>
+            <Text style={Styles.rowLabel}>Date</Text>
+            <Button onPress={this.showDatePicker}>
+              {item.date.toDateString()}
+            </Button>
           </View>
 
           <View style={Styles.row}>
