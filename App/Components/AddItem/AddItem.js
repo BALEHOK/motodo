@@ -7,7 +7,8 @@ import {
   TextInput,
   Keyboard,
   LayoutAnimation,
-  DatePickerAndroid
+  DatePickerAndroid,
+  TimePickerAndroid
 } from 'react-native';
 import Button from 'react-native-button';
 import { Actions as NavigationActions} from 'react-native-router-flux';
@@ -91,8 +92,33 @@ export default class AddItem extends React.Component {
           var date = new Date(year, month, day);
           this.setItemState({date});
         }
-      })
-      .catch(e => console.log(e));
+      });
+  }
+
+  handleChangeNotification = (value) => {
+    var newItemState = {
+      notifEnabled: value
+    };
+
+    if (value && !this.state.item.notifWhen) {
+      newItemState.notifWhen = new Date();
+    }
+
+    this.setItemState(newItemState);
+  }
+
+  showNotificationPicker = () => {
+    TimePickerAndroid.open()
+      .then(pickerResult => {
+        const {action, minute, hour} = pickerResult;
+
+        if (action === TimePickerAndroid.timeSetAction) {
+          var when = new Date();
+          when.setHours(hour);
+          when.setMinutes(minute);
+          this.setItemState({notifWhen: when});
+        }
+      });
   }
 
   setItemState(diff) {
@@ -102,6 +128,8 @@ export default class AddItem extends React.Component {
   render () {
     const textInputStyle = Styles.textInput;
     const item = this.state.item;
+    const notificationEnabled = item.notifEnabled;
+
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
           <View style={Styles.row}>
@@ -130,6 +158,20 @@ export default class AddItem extends React.Component {
             <Button onPress={this.showDatePicker}>
               {item.date.toDateString()}
             </Button>
+          </View>
+
+          <View style={Styles.row}>
+            <Text style={Styles.rowLabel}>Notification</Text>
+            <Switch
+              onValueChange={ this.handleChangeNotification }
+              value={ notificationEnabled } />
+            { notificationEnabled
+              ?
+                <Button onPress={this.showNotificationPicker}>
+                  {item.notifWhen.toString()}
+                </Button>
+              : null
+            }
           </View>
 
           <View style={Styles.row}>
