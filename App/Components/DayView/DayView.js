@@ -5,6 +5,8 @@ import { View, ListView } from 'react-native';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
 
+import dateTimeService from '../../Services/DateTimeService';
+
 import AlertMessage from '../Shared/AlertMessageComponent';
 import DayItem from './DayItem';
 
