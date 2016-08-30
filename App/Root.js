@@ -3,7 +3,7 @@ import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import * as appActions from './Actions/AppActionCreators';
 import DebugSettings from './Config/DebugSettings';
-import NavigationRouter from './Navigation/NavigationRouter';
+import NavigationRouter from './Navigation/NavigationRouter.Connect';
 
 // Styles
 import styles from './Components/Shared/Styles/RootStyle';
@@ -20,6 +20,7 @@ export default class Root extends React.Component {
 
   render () {
     console.disableYellowBox = !DebugSettings.yellowBox;
+
     return (
       <Provider store={this.props.store}>
         <View style={styles.applicationView}>
