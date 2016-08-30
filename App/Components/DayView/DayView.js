@@ -1,11 +1,10 @@
 import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { View, ListView } from 'react-native';
+import { View, ListView, PanResponder } from 'react-native';
+import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
-
-import dateTimeService from '../../Services/DateTimeService';
 
 import AlertMessage from '../Shared/AlertMessageComponent';
 import DayItem from './DayItem';
@@ -13,7 +12,9 @@ import DayItem from './DayItem';
 export default class DayView extends React.Component {
   static propTypes = {
     items: PropTypes.array.required,
-    fetchItems: PropTypes.func.required
+    fetchItems: PropTypes.func.required,
+    goToPreviousDay: PropTypes.func.required,
+    goToNextDay: PropTypes.func.required,
   };
 
   constructor (props) {
@@ -32,6 +33,21 @@ export default class DayView extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(this.props.items)
     };
+
+    this._panResponder = PanResponder.create({
+      // Only respond to movements if the gesture is a swipe up
+      onMoveShouldSetPanResponder: (e, gs) => {
+        const sgs = new SimpleGesture(e,gs);
+        const isSwipeLeft = sgs.isSwipeLeft(),
+          isSwipeRight = sgs.isSwipeRight();
+        if (isSwipeLeft || isSwipeRight) {
+          this.onHorizontalSwipe(isSwipeLeft);
+          return false;
+        }
+
+        return true;
+      }
+    });
   }
 
   componentDidMount() {
@@ -93,9 +109,17 @@ export default class DayView extends React.Component {
     NavigationActions.addItem();
   }
 
+  onHorizontalSwipe(isLeftSwipe) {
+    if (isLeftSwipe) {
+      this.props.goToPreviousDay();
+    } else {
+      this.props.goToNextDay();
+    }
+  }
+
   render () {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} { ...this._panResponder.panHandlers }>
         <AlertMessage title='You have no items for today!' show={this._noRowData()} />
         <ListView
           contentContainerStyle={styles.listContent}

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import DayView from './DayView';
-import * as ActionCreators from '../../Actions/DayViewActionCreators';
+import * as AppActionCreators from '../../Actions/AppActionCreators';
+import * as DayViewActionCreators from '../../Actions/DayViewActionCreators';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,4 +10,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, ActionCreators)(DayView);
+// запилил байндинги, но свайп не вызывается из DayView
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchItems: date => dispatch(DayViewActionCreators.fetchItems(date)),
+    goToPreviousDay: () => dispatch(AppActionCreators.goToPreviousDay()),
+    goToNextDay: () => dispatch(AppActionCreators.goToNextDay()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DayView);
