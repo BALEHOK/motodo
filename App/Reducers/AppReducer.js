@@ -29,11 +29,11 @@ class AppReducer extends Reducer {
   }
 
   goToNextDay(state) {
-    return Object.assign({}, state, dateTimeService.addDay(state.date));
+    return Object.assign({}, state, {date: dateTimeService.addDay(state.date)});
   }
 
   goToPreviousDay(state) {
-    return Object.assign({}, state, dateTimeService.addDay(state.date, -1));
+    return Object.assign({}, state, {date: dateTimeService.addDay(state.date, -1)});
   }
 }
 

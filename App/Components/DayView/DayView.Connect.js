@@ -10,7 +10,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-// запилил байндинги, но свайп не вызывается из DayView
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchItems: date => dispatch(DayViewActionCreators.fetchItems(date)),

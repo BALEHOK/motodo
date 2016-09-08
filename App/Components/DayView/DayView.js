@@ -35,17 +35,17 @@ export default class DayView extends React.Component {
     };
 
     this._panResponder = PanResponder.create({
-      // Only respond to movements if the gesture is a swipe up
       onMoveShouldSetPanResponder: (e, gs) => {
+        const sgs = new SimpleGesture(e,gs);
+        return sgs.isHorizontal();
+      },
+      onPanResponderRelease: (e, gs) => {
         const sgs = new SimpleGesture(e,gs);
         const isSwipeLeft = sgs.isSwipeLeft(),
           isSwipeRight = sgs.isSwipeRight();
         if (isSwipeLeft || isSwipeRight) {
           this.onHorizontalSwipe(isSwipeLeft);
-          return false;
         }
-
-        return true;
       }
     });
   }
