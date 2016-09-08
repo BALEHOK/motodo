@@ -1,6 +1,5 @@
 import Reducer from './BaseReducer';
 import * as types from '../Actions/Types';
-import dateTimeService from '../Services/DateTimeService';
 
 function getTodayDate() {
   return new Date(new Date().toDateString());
@@ -17,8 +16,7 @@ class AppReducer extends Reducer {
 
     this.actionMap = {
       [types.startup]: 'startup',
-      [types.goToNextDay]: 'goToNextDay',
-      [types.goToPreviousDay]: 'goToPreviousDay',
+      [types.setDate]: 'setDate'
     };
   }
 
@@ -28,12 +26,8 @@ class AppReducer extends Reducer {
     });
   }
 
-  goToNextDay(state) {
-    return Object.assign({}, state, {date: dateTimeService.addDay(state.date)});
-  }
-
-  goToPreviousDay(state) {
-    return Object.assign({}, state, {date: dateTimeService.addDay(state.date, -1)});
+  setDate(state, action) {
+    return Object.assign({}, state, {date: action.date});
   }
 }
 

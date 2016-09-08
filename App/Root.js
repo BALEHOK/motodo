@@ -3,7 +3,8 @@ import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import * as appActions from './Actions/AppActionCreators';
 import DebugSettings from './Config/DebugSettings';
-import NavigationRouter from './Navigation/NavigationRouter.Connect';
+import NavigationRouter from './Navigation/NavigationRouter';
+import './ObservableImports';
 
 // Styles
 import styles from './Components/Shared/Styles/RootStyle';

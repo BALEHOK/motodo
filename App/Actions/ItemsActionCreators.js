@@ -1,6 +1,6 @@
 import * as types from './Types';
 import itemsRepository from '../Repositories/ItemsRepository';
-import { fetchItems } from './DayViewActionCreators';
+import { fetchItems } from './AppActionCreators';
 
 export const addItem = (item) => (dispatch, getState) => {
   itemsRepository.addItem(item);
@@ -8,6 +8,6 @@ export const addItem = (item) => (dispatch, getState) => {
 
   var appState = getState().app;
   if (appState.view === 'day') {
-    dispatch(fetchItems(appState.date));
+    dispatch(fetchItems());
   }
 };

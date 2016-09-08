@@ -8,6 +8,8 @@ import Reactotron from 'reactotron';
 import RehydrationServices from '../Services/RehydrationServices';
 import ReduxPersist from '../Config/ReduxPersist';
 import thunkMiddleware from 'redux-thunk';
+import { createEpicMiddleware } from 'redux-observable';
+import rootEpic from '../Epics';
 
 // the logger master switch
 const USE_LOGGING = Config.reduxLogging;
@@ -21,6 +23,8 @@ const logger = createLogger({
 
 let middleware = [];
 middleware.push(thunkMiddleware);
+
+middleware.push(createEpicMiddleware(rootEpic));
 
 // Don't ship these
 if (__DEV__) {

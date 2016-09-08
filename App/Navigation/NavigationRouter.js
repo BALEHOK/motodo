@@ -5,8 +5,6 @@ import NavigationDrawer from './NavigationDrawer';
 import DayView from '../Components/DayView';
 import AddItem from '../Components/AddItem';
 
-import dateTimeService from '../Services/DateTimeService';
-
 // screens identified by the router
 
 /***************************
@@ -25,7 +23,7 @@ class NavigationRouter extends Component {
             backButtonTextStyle={Styles.rightButton}
             rightButtonTextStyle={Styles.rightButton}
           >
-            <Scene key='dayView' component={ DayView } title={dateTimeService.toDateString(this.props.date)} initial />
+            <Scene key='dayView' component={ DayView } title='Day view' initial />
             <Scene key='addItem' component={ AddItem } title='Add item' />
           </Scene>
         </Scene>

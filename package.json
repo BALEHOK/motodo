@@ -37,9 +37,11 @@
     "react-redux": "^4.4.2",
     "redux": "^3.4.0",
     "redux-logger": "^2.4.0",
+    "redux-observable": "^0.9.1",
     "redux-persist": "^3.1.1",
     "redux-thunk": "^2.1.0",
     "reduxsauce": "0.1.0",
+    "rxjs": "^5.0.0-beta.11",
     "seamless-immutable": "^6.1.0"
   },
   "devDependencies": {

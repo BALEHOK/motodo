@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import DayView from './DayView';
-import * as AppActionCreators from '../../Actions/AppActionCreators';
-import * as DayViewActionCreators from '../../Actions/DayViewActionCreators';
+import * as appActionCreators from '../../Actions/AppActionCreators';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,9 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchItems: date => dispatch(DayViewActionCreators.fetchItems(date)),
-    goToPreviousDay: () => dispatch(AppActionCreators.goToPreviousDay()),
-    goToNextDay: () => dispatch(AppActionCreators.goToNextDay()),
+    fetchItems: date => dispatch(appActionCreators.fetchItems(date)),
+    goToPreviousDay: () => dispatch(appActionCreators.goToPreviousDay()),
+    goToNextDay: () => dispatch(appActionCreators.goToNextDay()),
   };
 };
 
