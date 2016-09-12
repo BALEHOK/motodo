@@ -9,14 +9,13 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginVertical: Metrics.smallMargin,
-    padding: 10
+    padding: Metrics.baseMargin
   },
   itemIcons: {
     alignSelf: 'center',
-    color: Colors.snow,
     width: 15
   },
-  itemName: {
+  itemContent: {
     alignSelf: 'center',
     color: Colors.snow
   }

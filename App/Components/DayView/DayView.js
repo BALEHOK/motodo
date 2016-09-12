@@ -1,7 +1,7 @@
 import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
+import { ToolbarAndroid, View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
@@ -60,7 +60,7 @@ export default class DayView extends React.Component {
 
   _renderRow (dayItem) {
     return (
-      <DayItem item={dayItem} />
+      <DayItem item={dayItem} onLongPress={() => true} />
     );
   }
 
@@ -85,9 +85,11 @@ export default class DayView extends React.Component {
   render () {
     return (
       <View style={styles.container} { ...this._panResponder.panHandlers }>
-        <Text>
-          {dateTimeService.toDateString(this.props.date)}
-        </Text>
+        <ToolbarAndroid
+          title={dateTimeService.toDateString(this.props.date)}
+          style={styles.toolbar}
+          titleColor={styles.colors.snow}
+        />
         <AlertMessage title='You have no items for today!' show={this._noRowData()} />
         <ListView
           contentContainerStyle={styles.listContent}

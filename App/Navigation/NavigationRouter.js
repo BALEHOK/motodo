@@ -20,11 +20,10 @@ class NavigationRouter extends Component {
             navigationBarStyle={Styles.navBar}
             titleStyle={Styles.title}
             leftButtonIconStyle={Styles.leftButton}
-            backButtonTextStyle={Styles.rightButton}
-            rightButtonTextStyle={Styles.rightButton}
+            backButtonTextStyle={Styles.leftButton}
           >
-            <Scene key='dayView' component={ DayView } title='Day view' initial />
-            <Scene key='addItem' component={ AddItem } title='Add item' />
+            <Scene key='dayView' component={ DayView } title='Day view' initial hideNavBar />
+            <Scene key='addItem' component={ AddItem } title='Add item' hideNavBar={false}/>
           </Scene>
         </Scene>
       </Router>
