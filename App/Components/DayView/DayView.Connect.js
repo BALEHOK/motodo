@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchItems: date => dispatch(appActionCreators.fetchItems(date)),
     goToPreviousDay: () => dispatch(appActionCreators.goToPreviousDay()),
     goToNextDay: () => dispatch(appActionCreators.goToNextDay()),
   };

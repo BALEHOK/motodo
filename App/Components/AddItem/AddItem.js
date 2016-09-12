@@ -142,7 +142,7 @@ export default class AddItem extends React.Component {
               returnKeyType='next'
               onChangeText={this.handleChangeName}
               underlineColorAndroid='transparent'
-              onSubmitEditing={() => this.refs.password.focus()}
+              onSubmitEditing={this.saveItem}
               placeholder='Name' />
           </View>
 

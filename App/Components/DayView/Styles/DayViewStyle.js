@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../../Themes/'
+import { StyleSheet } from 'react-native';
+import { ApplicationStyles, Metrics, Colors } from '../../../Themes/';
 
 export default {
   colors: Colors,
@@ -15,4 +15,4 @@ export default {
       marginTop: Metrics.baseMargin
     }
   })
-}
+};

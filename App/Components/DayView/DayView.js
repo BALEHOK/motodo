@@ -1,7 +1,7 @@
 import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { View, Text, ListView, PanResponder } from 'react-native';
+import { View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
@@ -21,10 +21,6 @@ export default class DayView extends React.Component {
 
   constructor (props) {
     super(props);
-
-    // Set up our two placeholder values for scrollToBottom()
-    this.listHeight = 0;
-    this.footerY = 0;
 
     const rowHasChanged = (r1, r2) => r1 !== r2;
 
@@ -52,11 +48,11 @@ export default class DayView extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.props.fetchItems(this.props.date);
-  }
-
   componentWillReceiveProps(nextProps) {
+    if (nextProps.items === this.props.items) {
+      return;
+    }
+
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(nextProps.items)
     });
@@ -72,39 +68,6 @@ export default class DayView extends React.Component {
   // returns true if the dataSource is empty
   _noRowData () {
     return this.state.dataSource.getRowCount() === 0;
-  }
-
-  // Magical helper function that can scroll your ListView to the bottom
-  scrollToBottom(animated = true) {
-    if (this.listHeight && this.footerY && this.footerY > this.listHeight) {
-      // Calculates the y scroll position inside the ListView
-      const scrollTo = this.footerY - this.listHeight;
-
-      // Scroll that sucker!
-      this.refs.listView.scrollTo({
-        y: scrollTo,
-        animated: animated,
-      });
-    }
-  }
-
-  // Save the list's height when it renders
-  onLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-    this.listHeight = layout.height;
-  }
-
-  // Render a footer. Keep onFooterLayout if you decide to fill out this section
-  renderFooter = () => {
-    return (
-      <View onLayout={this.onFooterLayout} />
-    );
-  }
-
-  // When the footer is laid out, store its y-position
-  onFooterLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-    this.footerY = layout.y;
   }
 
   onNew() {
@@ -129,10 +92,8 @@ export default class DayView extends React.Component {
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
-          onLayout={this.onLayout}
           renderRow={this._renderRow}
-          renderFooter={this.renderFooter}
-          enableEmptySections
+          renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
         />
         <ActionButton title="New Task" buttonColor={styles.colors.bloodOrange} onPress={this.onNew} />
       </View>
