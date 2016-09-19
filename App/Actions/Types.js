@@ -8,3 +8,5 @@ export const fetchItems = 'DAYVIEW_ITEMS_FETCH';
 export const itemsFetched = 'DAYVIEW_ITEMS_FETCHED';
 
 export const itemAdded = 'ITEMS_ADDED';
+export const itemDelete = 'ITEMS_DELETE';
+export const itemDone = 'ITEMS_MARKDONE';

@@ -11,6 +11,9 @@ export default StyleSheet.create({
     marginVertical: Metrics.smallMargin,
     padding: Metrics.baseMargin
   },
+  rowActive: {
+    backgroundColor: Colors.fireDark
+  },
   itemIcons: {
     alignSelf: 'center',
     width: 15

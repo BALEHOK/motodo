@@ -14,8 +14,14 @@ export default class DayItem extends React.Component {
 
   render() {
     const item = this.props.item;
+
+    const style = [styles.row];
+    if (this.props.active) {
+      style.push(styles.rowDark);
+    }
+
     return (
-      <TouchableOpacity style={[styles.row, {opacity: this.props.active ? 0.2 : 1}]} onLongPress={this.props.onLongPress}>
+      <TouchableOpacity style={style} onLongPress={this.props.onLongPress}>
         <View style={styles.itemIcons}>
           { item.importance
             ? <Icon name={'ios-alert-outline'} style={styles.itemContent} />

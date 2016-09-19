@@ -11,3 +11,7 @@ export const addItem = (item) => (dispatch, getState) => {
     dispatch(fetchItems());
   }
 };
+
+export const deleteItem = (itemId) => ({type: types.itemDelete, itemId});
+
+export const markDone = (itemId) => ({type: types.itemDone, itemId});

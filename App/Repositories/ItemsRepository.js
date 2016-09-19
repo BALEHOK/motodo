@@ -37,6 +37,17 @@ class ItemRepository {
   addItem(item) {
     items.push(item);
   }
+
+  deleteItem(itemId) {
+    var index = items.findIndex(i => i.id === itemId);
+    if (index !== -1) {
+      items.splice(index, index + 1);
+    }
+  }
+
+  markDone(itemId) {
+    items.find(i => i === itemId).done = true;
+  }
 }
 
 export default new ItemRepository();

@@ -8,13 +8,26 @@ class DayViewReducer extends Reducer {
     this.defaultState = { items: [] };
 
     this.actionMap = {
-      [types.itemsFetched]: 'itemsFetched'
+      [types.itemsFetched]: 'itemsFetched',
+      [types.itemDelete]: 'itemDelete',
+      [types.itemDone]: 'itemDelete',
     };
   }
 
   itemsFetched(state, action) {
     return Object.assign({}, state, {
       items: action.items
+    });
+  }
+
+  itemDelete(state, action) {
+    var index = state.items.findIndex(i => i.id === action.itemId);
+    if (index === -1) {
+      return state;
+    }
+
+    return Object.assign({}, state, {
+      items: [...state.items.slice(0, index), ...state.items.slice(index+1)]
     });
   }
 }

@@ -90,11 +90,11 @@ export default class DayView extends React.Component {
     switch(action.id){
       case 'done':
         // mark item done
-        console.log('done item');
+        this.props.markDone(this.state.selected[0]);
         break;
       case 'delete':
         // delete item
-        console.log('delete item');
+        this.props.deleteItem(this.state.selected[0]);
         break;
 
       default:
