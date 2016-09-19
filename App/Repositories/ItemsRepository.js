@@ -1,9 +1,10 @@
 import DayItemModel from '../Models/DayItemModel';
 
 var items;
-
+var idTracker = 0;
 function createDayItem(name, date) {
   const item = new DayItemModel();
+  item.id = idTracker++;
   item.name = name;
   item.date = date;
   return item;

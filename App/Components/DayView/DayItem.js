@@ -8,13 +8,14 @@ import styles from './Styles/DayItemStyle';
 export default class DayItem extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
-    onLongPress: PropTypes.func.isRequired
+    onLongPress: PropTypes.func.isRequired,
+    active: PropTypes.bool
   };
 
   render() {
     const item = this.props.item;
     return (
-      <TouchableOpacity style={styles.row} onLongPress={() => this.props.onLongPress(item.id)}>
+      <TouchableOpacity style={[styles.row, {opacity: this.props.active ? 0.2 : 1}]} onLongPress={this.props.onLongPress}>
         <View style={styles.itemIcons}>
           { item.importance
             ? <Icon name={'ios-alert-outline'} style={styles.itemContent} />
@@ -26,7 +27,7 @@ export default class DayItem extends React.Component {
             : null
           }
         </View>
-        <Text style={styles.itemContent}>{item.name}</Text>
+        <Text style={styles.itemContent}>{item.name + this.props.active}</Text>
       </TouchableOpacity>
     );
   }

@@ -1,7 +1,7 @@
 import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { ToolbarAndroid, View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
+import { ToolbarAndroid, View, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
@@ -19,6 +19,11 @@ export default class DayView extends React.Component {
     goToNextDay: PropTypes.func.isRequired,
   };
 
+  toolbarActions = [
+    {id: 'done', title: 'Done', show: 'always'},
+    {id: 'delete', title: 'Delete', show: 'always'}
+  ];
+
   constructor (props) {
     super(props);
 
@@ -29,7 +34,9 @@ export default class DayView extends React.Component {
 
     // Datasource is always in state
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.items)
+      dataSource: ds.cloneWithRows(this.props.items),
+      selectionMode: false,
+      selected: []
     };
 
     this._panResponder = PanResponder.create({
@@ -58,11 +65,8 @@ export default class DayView extends React.Component {
     });
   }
 
-  _renderRow (dayItem) {
-    return (
-      <DayItem item={dayItem} onLongPress={() => true} />
-    );
-  }
+  _renderRow = (dayItem) =>
+    <DayItem item={dayItem} onLongPress={() => this.onItemLongPress(dayItem.id)} active={this.state.selected.includes(dayItem.id)} />
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
@@ -74,6 +78,35 @@ export default class DayView extends React.Component {
     NavigationActions.addItem();
   }
 
+  onItemLongPress(itemId) {
+    this.setState({
+      selectionMode: true,
+      selected: [itemId]
+    });
+  }
+
+  onToolbarAction = (index) => {
+    var action = this.toolbarActions[index];
+    switch(action.id){
+      case 'done':
+        // mark item done
+        console.log('done item');
+        break;
+      case 'delete':
+        // delete item
+        console.log('delete item');
+        break;
+
+      default:
+        // cancel selection mode
+    }
+
+    this.setState({
+      selectionMode: false,
+      selected: []
+    });
+  }
+
   onHorizontalSwipe(isLeftSwipe) {
     if (isLeftSwipe) {
       this.props.goToNextDay();
@@ -82,14 +115,28 @@ export default class DayView extends React.Component {
     }
   }
 
-  render () {
-    return (
-      <View style={styles.container} { ...this._panResponder.panHandlers }>
+  getToolbar() {
+    return this.state.selectionMode
+      ? (
+        <ToolbarAndroid
+          style={styles.toolbar}
+          titleColor={styles.colors.snow}
+          actions={this.toolbarActions}
+          onActionSelected={this.onToolbarAction}
+        />
+      ) : (
         <ToolbarAndroid
           title={dateTimeService.toDateString(this.props.date)}
           style={styles.toolbar}
           titleColor={styles.colors.snow}
         />
+      );
+  }
+
+  render () {
+    return (
+      <View style={styles.container} { ...this._panResponder.panHandlers }>
+        {this.getToolbar()}
         <AlertMessage title='You have no items for today!' show={this._noRowData()} />
         <ListView
           contentContainerStyle={styles.listContent}
