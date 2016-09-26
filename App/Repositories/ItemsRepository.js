@@ -31,7 +31,7 @@ class ItemRepository {
   getDayItems(date) {
     const ticks = date.getTime();
 
-    return items.filter(i => i.date.getTime() === ticks);
+    return items.filter(i => !i.done && i.date.getTime() === ticks);
   }
 
   addItem(item) {
@@ -41,12 +41,12 @@ class ItemRepository {
   deleteItem(itemId) {
     var index = items.findIndex(i => i.id === itemId);
     if (index !== -1) {
-      items.splice(index, index + 1);
+      items.splice(index, 1);
     }
   }
 
   markDone(itemId) {
-    items.find(i => i === itemId).done = true;
+    items.find(i => i.id === itemId).done = true;
   }
 }
 

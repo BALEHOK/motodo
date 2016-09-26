@@ -14,7 +14,6 @@ export default class DayView extends React.Component {
   static propTypes = {
     date: PropTypes.object.isRequired,
     items: PropTypes.array.isRequired,
-    fetchItems: PropTypes.func.isRequired,
     goToPreviousDay: PropTypes.func.isRequired,
     goToNextDay: PropTypes.func.isRequired,
   };

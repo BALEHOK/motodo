@@ -1,5 +1,7 @@
 import * as types from './Types';
 
+export const dummy = () => ({ type: types.dummy });
+
 export const startup = () => ({ type: types.startup });
 export const setDate = (date) => ({ type: types.setDate, date});
 

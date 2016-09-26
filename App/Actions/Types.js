@@ -1,3 +1,5 @@
+export const dummy = 'APP_DUMMY';
+
 export const startup = 'APP_STARTUP';
 export const setDate = 'APP_SET_CURRENTDATE';
 
