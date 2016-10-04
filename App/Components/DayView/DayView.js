@@ -1,7 +1,7 @@
 import styles from './Styles/DayViewStyle';
 
 import React, { PropTypes } from 'react';
-import { ToolbarAndroid, View, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
+import { View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from 'react-native';
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
@@ -84,26 +84,14 @@ export default class DayView extends React.Component {
     });
   }
 
-  onToolbarAction = (index) => {
-    var action = this.toolbarActions[index];
-    switch(action.id){
-      case 'done':
-        // mark item done
-        this.props.markDone(this.state.selected[0]);
-        break;
-      case 'delete':
-        // delete item
-        this.props.deleteItem(this.state.selected[0]);
-        break;
+  onDone = () => {
+    this.props.markDone(this.state.selected[0]);
+    this.quitSelectionMode();
+  }
 
-      default:
-        // cancel selection mode
-    }
-
-    this.setState({
-      selectionMode: false,
-      selected: []
-    });
+  onDelete = () => {
+    this.props.deleteItem(this.state.selected[0]);
+    this.quitSelectionMode();
   }
 
   onHorizontalSwipe(isLeftSwipe) {
@@ -114,21 +102,44 @@ export default class DayView extends React.Component {
     }
   }
 
+  quitSelectionMode = () =>
+    this.setState({
+      selectionMode: false,
+      selected: []
+    });
+
   getToolbar() {
     return this.state.selectionMode
       ? (
-        <ToolbarAndroid
-          style={styles.toolbar}
-          titleColor={styles.colors.snow}
-          actions={this.toolbarActions}
-          onActionSelected={this.onToolbarAction}
-        />
+        <View style={styles.toolbar}>
+          <Text
+            style={styles.toolbarText}
+            onPress={this.quitSelectionMode}
+          >
+            Cancel
+          </Text>
+
+          <View style={styles.tolbarActions}>
+            <Text
+              style={[styles.toolbarText, styles.marginRight]}
+              onPress={this.onDone}
+            >
+              Done
+            </Text>
+            <Text
+              style={styles.toolbarText}
+              onPress={this.onDelete}
+            >
+              Delete
+            </Text>
+          </View>
+        </View>
       ) : (
-        <ToolbarAndroid
-          title={dateTimeService.toDateString(this.props.date)}
-          style={styles.toolbar}
-          titleColor={styles.colors.snow}
-        />
+        <View style={styles.toolbar}>
+          <Text style={styles.toolbarText}>
+            { dateTimeService.toDateString(this.props.date) }
+          </Text>
+        </View>
       );
   }
 

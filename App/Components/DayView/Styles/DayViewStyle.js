@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors } from '../../../Themes/';
+import { Metrics, Colors, Fonts } from '../../../Themes/';
 
 export default {
   colors: Colors,
@@ -13,9 +13,22 @@ export default {
       marginTop: Metrics.baseMargin
     },
     toolbar: {
+      alignItems: 'center',
       backgroundColor: Colors.background,
+      flexDirection: 'row',
+      height: Metrics.navBarHeight,
+      justifyContent: 'space-between',
+      marginHorizontal: Metrics.doubleBaseMargin
+    },
+    tolbarActions: {
+      flexDirection: 'row'
+    },
+    toolbarText: {
+      ...Fonts.style.regular,
       color: Colors.snow,
-      height: Metrics.navBarHeight
+    },
+    marginRight: {
+      marginRight: Metrics.doubleBaseMargin
     }
   })
 };
