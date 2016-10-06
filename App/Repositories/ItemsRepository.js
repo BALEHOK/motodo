@@ -1,52 +1,32 @@
-import DayItemModel from '../Models/DayItemModel';
+import Store from './Store';
+import guid from '../Lib/Guid';
 
-var items;
-var idTracker = 0;
-function createDayItem(name, date) {
-  const item = new DayItemModel();
-  item.id = idTracker++;
-  item.name = name;
-  item.date = date;
-  return item;
-}
-
-function getItems() {
-  var dateString = new Date().toDateString();
-  var date = new Date(dateString);
-
-  return [
-    createDayItem(`First Title (${dateString})`, date),
-    createDayItem(`Second Title (${dateString})`, date),
-    createDayItem(`Third Title (${dateString})`, date),
-    createDayItem(`Fourth Title (${dateString})`, date),
-    createDayItem(`Fifth Title (${dateString})`, date)
-  ];
-}
+var db = {
+  items: new Store('items')
+};
 
 class ItemRepository {
-  constructor() {
-    items = getItems();
-  }
-
   getDayItems(date) {
     const ticks = date.getTime();
 
-    return items.filter(i => !i.done && i.date.getTime() === ticks);
+    return db.items
+      .find(i => !i.done && i.date.getTime() === ticks);
   }
 
   addItem(item) {
-    items.push(item);
+    item.id = guid();
+    return db.items.add(item);
   }
 
   deleteItem(itemId) {
-    var index = items.findIndex(i => i.id === itemId);
-    if (index !== -1) {
-      items.splice(index, 1);
-    }
+    // var index = items.findIndex(i => i.id === itemId);
+    // if (index !== -1) {
+    //   items.splice(index, 1);
+    // }
   }
 
   markDone(itemId) {
-    items.find(i => i.id === itemId).done = true;
+    // items.find(i => i.id === itemId).done = true;
   }
 }
 

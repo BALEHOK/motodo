@@ -8,7 +8,6 @@ import itemsRepository from '../Repositories/ItemsRepository';
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
     .do((action) => {
-      console.log('qqq');
       itemsRepository.deleteItem(action.itemId);
     })
     .mapTo(actionCreators.dummy());
