@@ -5,6 +5,7 @@ import * as appActions from './Actions/AppActionCreators';
 import DebugSettings from './Config/DebugSettings';
 import NavigationRouter from './Navigation/NavigationRouter';
 import './ObservableImports';
+import db from './Repositories/Db';
 
 // Styles
 import styles from './Components/Shared/Styles/RootStyle';
@@ -16,7 +17,7 @@ export default class Root extends React.Component {
 
   componentWillMount () {
     const { dispatch } = this.props.store;
-    dispatch(appActions.startup());
+    db.initialized$.do(() => dispatch(appActions.startup()));
   }
 
   render () {

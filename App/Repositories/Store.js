@@ -1,6 +1,4 @@
 import { AsyncStorage } from 'react-native';
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/fromPromise";
 
 async function initStore(storeName, store) {
   let model = await AsyncStorage.getItem(storeName);
@@ -22,15 +20,17 @@ function persistStore(store) {
 
 export default class Store {
   constructor(storeName) {
-    this.initialized$ = Observable.fromPromise(initStore(storeName, this));
+    this.initialized = initStore(storeName, this);
   }
 
   find(filter) {
-    return [...this.rows.filter(filter)];
+    return [...this.model.rows.filter(filter)];
   }
 
+// ToDo this.model.rows.push is not a function
+
   add(obj) {
-    this.rows.push(obj);
+    this.model.rows.push(obj);
     return persistStore(this);
   }
 }

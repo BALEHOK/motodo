@@ -1,9 +1,6 @@
-import Store from './Store';
 import guid from '../Lib/Guid';
+import db from './Db';
 
-var db = {
-  items: new Store('items')
-};
 
 class ItemRepository {
   getDayItems(date) {
