@@ -4,13 +4,13 @@ import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import itemsRepository from '../Repositories/ItemsRepository';
 
-//не вызываются методы репозитория
+//fetchItems проходит мгновенно, а должен ждать пока закончится delete item
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
-    .do((action) => {
-      itemsRepository.deleteItem(action.itemId);
+    .mergeMap((action) => {
+      return itemsRepository.deleteItem(action.itemId);
     })
-    .mapTo(actionCreators.dummy());
+    .mapTo(actionCreators.fetchItems());
 
 const markDone = (action$) =>
   action$.ofType(actionTypes.itemDone)

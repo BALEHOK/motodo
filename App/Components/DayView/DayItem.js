@@ -33,7 +33,7 @@ export default class DayItem extends React.Component {
             : null
           }
         </View>
-        <Text style={styles.itemContent}>{item.name + this.props.active}</Text>
+        <Text style={styles.itemContent}>{item.name + ' (' + this.props.active + ')'}</Text>
       </TouchableOpacity>
     );
   }

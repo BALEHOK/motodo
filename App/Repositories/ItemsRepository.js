@@ -16,10 +16,7 @@ class ItemRepository {
   }
 
   deleteItem(itemId) {
-    // var index = items.findIndex(i => i.id === itemId);
-    // if (index !== -1) {
-    //   items.splice(index, 1);
-    // }
+    return db.items.remove(i => i.id === itemId);
   }
 
   markDone(itemId) {

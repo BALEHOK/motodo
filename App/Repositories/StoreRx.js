@@ -11,4 +11,10 @@ export default class StoreRx extends Store {
   add(obj) {
     return Observable.fromPromise(super.add(obj));
   }
+
+  remove(filter) {
+    // return Observable.delay(500)
+    //  .map()
+    return Observable.fromPromise(super.remove(filter)).delay(3000);
+  }
 }

@@ -10,6 +10,9 @@ async function initStore(storeName, store) {
     await persistStore({name: storeName, model});
   } else {
     model = JSON.parse(model);
+
+    // ToDo супер костыль. а бля пиздец починить быстро
+    model.rows.forEach(r => r.date = new Date(r.date));
   }
 
   store.name = storeName;
@@ -37,6 +40,24 @@ export default class Store {
 
   add(obj) {
     this.model.rows.push(obj);
+    return persistStore(this);
+  }
+
+  update() {
+
+  }
+
+  remove(filter) {
+    let rows = this.model.rows;
+    for (var i = 0; i < rows.length;) {
+      let item = rows[i];
+      if (filter(item)){
+        rows.splice(i, 1);
+      } else {
+        ++i;
+      }
+    }
+
     return persistStore(this);
   }
 }
