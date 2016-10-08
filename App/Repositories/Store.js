@@ -8,6 +8,8 @@ async function initStore(storeName, store) {
       version: 0
     };
     await persistStore({name: storeName, model});
+  } else {
+    model = JSON.parse(model);
   }
 
   store.name = storeName;
@@ -19,6 +21,10 @@ function persistStore(store) {
 }
 
 export default class Store {
+  //properties
+  name;
+  model;
+
   constructor(storeName) {
     this.initialized = initStore(storeName, this);
   }
