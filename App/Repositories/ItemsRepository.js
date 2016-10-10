@@ -1,3 +1,4 @@
+import {Observable} from "rxjs/Observable";
 import guid from '../Lib/Guid';
 import db from './Db';
 
@@ -19,8 +20,15 @@ class ItemRepository {
     return db.items.remove(i => i.id === itemId);
   }
 
+  // !!! DANGEROUS !!! updating item by ref
   markDone(itemId) {
-    // items.find(i => i.id === itemId).done = true;
+    let item = db.items.findById(itemId);
+    if (item) {
+      item.done = true;
+      return db.items.persistStoreRx();
+    }
+
+    return Observable.from([null]);
   }
 }
 

@@ -6,14 +6,12 @@ import itemsRepository from '../Repositories/ItemsRepository';
 
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
-    .mergeMap((action) => {
-      return itemsRepository.deleteItem(action.itemId);
-    })
-    .mapTo(actionCreators.fetchItems());
+    .mergeMap(action => itemsRepository.deleteItem(action.itemId))
+    .mapTo(actionCreators.dummy());
 
 const markDone = (action$) =>
   action$.ofType(actionTypes.itemDone)
-    .do((action) => itemsRepository.markDone(action.itemId))
+    .mergeMap(action => itemsRepository.markDone(action.itemId))
     .mapTo(actionCreators.dummy());
 
 

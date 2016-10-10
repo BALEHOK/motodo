@@ -8,8 +8,16 @@ export default class StoreRx extends Store {
     this.initialized$ = Observable.fromPromise(this.initialized);
   }
 
+  persistStoreRx() {
+    return Observable.fromPromise(super.persistStore());
+  }
+
   add(obj) {
     return Observable.fromPromise(super.add(obj));
+  }
+
+  replace(filter, obj) {
+    return Observable.fromPromise(super.replace(filter, obj));
   }
 
   remove(filter) {
