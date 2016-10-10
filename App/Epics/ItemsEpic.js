@@ -4,7 +4,6 @@ import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import itemsRepository from '../Repositories/ItemsRepository';
 
-//fetchItems проходит мгновенно, а должен ждать пока закончится delete item
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
     .mergeMap((action) => {
