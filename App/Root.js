@@ -17,7 +17,8 @@ export default class Root extends React.Component {
 
   componentWillMount () {
     const { dispatch } = this.props.store;
-    db.initialized$.do(() => dispatch(appActions.startup()));
+
+    db.initialized$.subscribe(() => dispatch(appActions.startup()));
   }
 
   render () {

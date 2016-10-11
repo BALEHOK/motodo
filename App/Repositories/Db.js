@@ -1,4 +1,3 @@
-// import {Observable} from "rxjs/Observable";
 import Store from './StoreRx';
 
 let db = {
@@ -6,5 +5,4 @@ let db = {
 };
 
 db.initialized$ = db.items.initialized$;
-
 export default db;

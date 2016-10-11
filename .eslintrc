@@ -4,6 +4,9 @@
     "browser": true,
     "node": true
   },
+  "globals": {
+    "Promise": true
+  },
   "parser": "babel-eslint",
   "rules": {
     "strict": 0,

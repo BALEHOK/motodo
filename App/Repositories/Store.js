@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
-async function initStore(storeName, store) {
-  AsyncStorage.getItem(storeName)
+function initStore(storeName, store) {
+  return AsyncStorage.getItem(storeName)
     .then(storedModel => {
     let persistStorePromise, model;
     if (!storedModel) {
