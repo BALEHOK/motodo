@@ -125,10 +125,14 @@ android {
     }
 }
 
+// need to add dependencies to node_modules/react-native-system-notification/android/build.gradle`
+// compile 'com.google.firebase:firebase-core:9.+'
+// compile 'com.google.firebase:firebase-messaging:9.+'
 dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-i18n')
     compile project(':react-native-device-info')
+    compile project(':react-native-system-notification')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

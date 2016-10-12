@@ -5,6 +5,8 @@ import { View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
+import Notification from 'react-native-system-notification';
+
 import dateTimeService from '../../Services/DateTimeService';
 
 import AlertMessage from '../Shared/AlertMessageComponent';
@@ -87,6 +89,14 @@ export default class DayView extends React.Component {
   onDone = () => {
     this.props.markDone(this.state.selected[0]);
     this.quitSelectionMode();
+
+    Notification.create({
+      subject: 'Notification With Payload',
+      message: 'This is a notification that contains custom payload.',
+      smallIcon: 'ic_launcher',
+      autoClear: true,
+      payload: { number: 1, what: true, someAnswer: '42' }
+    });
   }
 
   onDelete = () => {
