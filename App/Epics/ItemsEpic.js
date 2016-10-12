@@ -3,6 +3,20 @@ import { combineEpics } from 'redux-observable';
 import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import itemsRepository from '../Repositories/ItemsRepository';
+import notificationManager from '../Services/NotificationManager';
+
+const addItem = (action$) =>
+  action$.ofType(actionTypes.itemAdded)
+    .mergeMap(action => {
+      let item = action.item;
+      return notificationManager.scheduleNotification(item)
+        .map(notifId => {
+          item.notifId = notifId;
+          return item;
+        });
+    })
+    .mergeMap(itemsRepository.addItem)
+    .mapTo(actionCreators.dummy());
 
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
@@ -15,4 +29,4 @@ const markDone = (action$) =>
     .mapTo(actionCreators.dummy());
 
 
-export default combineEpics(deleteItem, markDone);
+export default combineEpics(addItem, deleteItem, markDone);

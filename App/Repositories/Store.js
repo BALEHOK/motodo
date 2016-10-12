@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
+import dateTimeService from '../Services/DateTimeService';
+
 function initStore(storeName, store) {
   return AsyncStorage.getItem(storeName)
     .then(storedModel => {
@@ -14,7 +16,12 @@ function initStore(storeName, store) {
       model = JSON.parse(storedModel);
 
       // ToDo супер костыль. а бля пиздец починить быстро
-      model.rows.forEach(r => r.date = new Date(r.date));
+      model.rows.forEach(r => {
+        r.date = new Date(r.date);
+        if (r.notifEnabled) {
+          r.notifWhen = dateTimeService.fromDateString(r.notifWhen);
+        }
+      });
     }
 
     store.name = storeName;
@@ -52,7 +59,7 @@ export default class Store {
         return items[0];
       }
 
-      throw new Exception(`found ${items.length} items with the same id ${id}, id must be unique`);
+      throw new Error(`found ${items.length} items with the same id ${id}, id must be unique`);
     }
 
     return null;

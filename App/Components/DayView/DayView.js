@@ -5,7 +5,6 @@ import { View, Text, ListView, PanResponder, RecyclerViewBackedScrollView } from
 import SimpleGesture from 'react-native-simple-gesture';
 import { Actions as NavigationActions } from 'react-native-router-flux';
 import ActionButton from 'react-native-action-button';
-import Notification from 'react-native-system-notification';
 
 import dateTimeService from '../../Services/DateTimeService';
 
@@ -67,7 +66,11 @@ export default class DayView extends React.Component {
   }
 
   _renderRow = (dayItem) =>
-    <DayItem item={dayItem} onLongPress={() => this.onItemLongPress(dayItem.id)} active={this.state.selected.includes(dayItem.id)} />
+    <DayItem item={dayItem}
+      onPress={this.onItemPress}
+      onLongPress={() => this.onItemLongPress(dayItem.id)}
+      active={this.state.selected.includes(dayItem.id)}
+    />
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
@@ -77,6 +80,9 @@ export default class DayView extends React.Component {
 
   onNew() {
     NavigationActions.addItem();
+  }
+
+  onItemPress() {
   }
 
   onItemLongPress(itemId) {

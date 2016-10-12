@@ -6,4 +6,5 @@ export default class DayItemModel {
   date = undefined;
   notifEnabled = false;
   notifWhen = undefined;
+  notifId = undefined;
 }
