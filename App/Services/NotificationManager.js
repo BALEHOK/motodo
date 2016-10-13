@@ -10,12 +10,12 @@ function createNotification(config) {
 class NotificationManager {
   scheduleNotification(item) {
     if (!item.notifEnabled) {
-      return Observable.from(null);
+      return Observable.of(null);
     }
 
     let notifDate = dateTimeService.setTime(item.date, item.notifWhen);
 
-    createNotification({
+    return createNotification({
       subject: 'MoToDo scheduled',
       message: item.name,
       smallIcon: 'ic_launcher',
@@ -23,6 +23,10 @@ class NotificationManager {
       payload: { itemId: item.id },
       sendAt: notifDate
     }).map(notification => notification.id);
+  }
+
+  deleteNotification(id) {
+    return Observable.fromPromise(Notification.delete(id));
   }
 }
 

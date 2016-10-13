@@ -8,10 +8,17 @@ class DayViewReducer extends Reducer {
     this.defaultState = { items: [] };
 
     this.actionMap = {
+      [types.itemAdded]: 'itemAdded',
       [types.itemsFetched]: 'itemsFetched',
       [types.itemDelete]: 'itemDelete',
       [types.itemDone]: 'itemDelete',
     };
+  }
+
+  itemAdded(state, action) {
+    return Object.assign({}, state, {
+      items: [...state.items, action.item]
+    });
   }
 
   itemsFetched(state, action) {
