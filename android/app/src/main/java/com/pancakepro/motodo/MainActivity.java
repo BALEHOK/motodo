@@ -1,4 +1,4 @@
-package com.motodo;
+package com.pancakepro.motodo;
 
 import com.facebook.react.ReactActivity;
 
