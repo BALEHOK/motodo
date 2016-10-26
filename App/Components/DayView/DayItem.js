@@ -8,10 +8,15 @@ import styles from './Styles/DayItemStyle';
 export default class DayItem extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
-    onPress: PropTypes.func.isRequired,
-    onLongPress: PropTypes.func.isRequired,
+    onPress: PropTypes.func,
+    onLongPress: PropTypes.func,
     active: PropTypes.bool
   };
+
+  static defaultProps = {
+    onPress: () => null,
+    onLongPress: () => null
+  }
 
   render() {
     const item = this.props.item;

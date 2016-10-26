@@ -4,6 +4,7 @@ import Styles from './Styles/NavigationContainerStyle';
 import NavigationDrawer from './NavigationDrawer';
 import DayView from '../Components/DayView';
 import AddItem from '../Components/AddItem';
+import UndoneView from '../Components/UndoneView';
 
 // screens identified by the router
 
@@ -24,6 +25,7 @@ class NavigationRouter extends Component {
           >
             <Scene key='dayView' component={ DayView } title='Day view' initial hideNavBar />
             <Scene key='addItem' component={ AddItem } title='Add item' hideNavBar={false}/>
+            <Scene key='undoneView' component={ UndoneView } title='Undone view' hideNavBar={false}/>
           </Scene>
         </Scene>
       </Router>

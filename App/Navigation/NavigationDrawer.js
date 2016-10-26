@@ -25,6 +25,7 @@ class NavigationDrawer extends Component {
         styles={Styles}
         tapToClose
         openDrawerOffset={0.2}
+        panOpenMask={0.1}
         panCloseMask={0.2}
         negotiatePan
         tweenHandler={(ratio) => ({
@@ -37,14 +38,4 @@ class NavigationDrawer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationDrawer);
+export default connect()(NavigationDrawer);
