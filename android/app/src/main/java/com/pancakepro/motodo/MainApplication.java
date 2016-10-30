@@ -7,6 +7,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.neson.react.notification.NotificationPackage;
+import org.pgsqlite.SQLitePluginPackage;
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new ReactNativeI18n(),
             new RNDeviceInfo(),
-            new NotificationPackage()
+            new NotificationPackage(),
+            new SQLitePluginPackage()
       );
     }
   };
