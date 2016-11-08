@@ -1,3 +1,16 @@
+export class Dict {
+  static name = 'Dict';
+
+  static columns = {
+    id: 'id',
+    num: 'num',
+    str: 'str'
+  }
+
+  static ids = {
+    dbVersion: '1'
+  }
+}
 export class Todos {
   static name = 'todos';
 

@@ -19,7 +19,7 @@ export default class Root extends React.Component {
   componentWillMount () {
     const { dispatch } = this.props.store;
     sqlStore.initialized$.subscribe(() => dispatch(appActions.startup()));
-    // db.initialized$.subscribe(() => dispatch(appActions.startup()));
+    db.initialized$.subscribe(() => dispatch(appActions.startup()));
   }
 
   render () {

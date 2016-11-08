@@ -1,5 +1,6 @@
 import SQLite from 'react-native-sqlite-storage';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
+import * as Tables from './Tables';
 // import "rxjs/add/observable/create";
 
 function openDbRx(subscriber) {
@@ -18,25 +19,34 @@ function openDbRx(subscriber) {
 
 // надо проверить состояние дб и создать таблицы, если необходимо
 function initialise(db) {
+  let dbVersion = 0;
   db.transaction(
     function (tx) {
-      tx.executeSql('SELECT num from version', (t, num) => console.log(num), (t, e) => console.log('error select', e));
+      // Dict table
+      tx.executeSql(`CREATE TABLE IF NOT EXISTS ${Tables.Dict.name}
+        (${Tables.Dict.columns.id} interger primary key, ${Tables.Dict.columns.num} integer, ${Tables.Dict.columns.str} text)`);
+
+      tx.executeSql(`SELECT ${Tables.Dict.columns.num} FROM ${Tables.Dict.name}
+        WHERE ${Tables.Dict.columns.id} = ${Tables.Dict.ids.dbVersion}`,
+        [],
+        (tx, resultSet) => {
+          if (resultSet.rows.length) {
+            dbVersion = resultSet.rows.item(0)[Tables.Dict.columns.num];
+          }
+
+          if (!dbVersion) {
+            tx.executeSql(`INSERT INTO ${Tables.Dict.name} VALUES (${Tables.Dict.ids.dbVersion}, 1, null)`);
+          }
+        }
+      );
     },
     function (error) {
         console.log('transaction error: ' + error.message);
     },
     function () {
-        console.log('transaction ok');
+        console.log('init db transaction ok');
     }
   );
-
-  // db.transaction(function (tx) {
-  //   tx.executeSql('CREATE TABLE customerAccounts (firstname, lastname, acctNo)');
-  // }, function (error) {
-  //     console.log('transaction error: ' + error.message);
-  // }, function () {
-  //     console.log('transaction ok');
-  // });
   return db;
 }
 
@@ -49,10 +59,6 @@ class SQLiteStore {
       .map(db => this.db = db)
       .map(initialise);
   }
-
-  executeSql(tx, query, params) {
-    tx.executeSql(query, params);
-  }
 }
 
-// export default new SQLiteStore();
+export default new SQLiteStore();
