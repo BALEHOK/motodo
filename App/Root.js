@@ -6,7 +6,6 @@ import DebugSettings from './Config/DebugSettings';
 import NavigationRouter from './Navigation/NavigationRouter';
 import './ObservableImports';
 import db from './Repositories/Db';
-import sqlStore from './Repositories/SQL/Store';
 
 // Styles
 import styles from './Components/Shared/Styles/RootStyle';
@@ -18,7 +17,6 @@ export default class Root extends React.Component {
 
   componentWillMount () {
     const { dispatch } = this.props.store;
-    sqlStore.initialized$.subscribe(() => dispatch(appActions.startup()));
     db.initialized$.subscribe(() => dispatch(appActions.startup()));
   }
 

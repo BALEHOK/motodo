@@ -1,8 +1,10 @@
-import Store from './StoreRx';
+// import Store from './StoreRx';
+import SqlStore from './SQL/Store';
+let store = new SqlStore();
 
 let db = {
-  items: new Store('items')
+  store,
+  initialized$: store.initialized$
 };
 
-db.initialized$ = db.items.initialized$;
 export default db;

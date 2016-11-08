@@ -11,7 +11,7 @@ const fetchItemsEpic = (action$) =>
 
 const onFetchItemsEpic = (action$, store) =>
   action$.ofType(actionTypes.fetchItems)
-    .map(() => itemsRepository.getDayItems(store.getState().app.date))
+    .mergeMap(() => itemsRepository.getDayItems(store.getState().app.date))
     .map(items => actionCreators.itemsFetched(items));
 
 const onPrevDayEpic = (action$, store) =>

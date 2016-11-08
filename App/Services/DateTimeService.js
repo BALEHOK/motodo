@@ -4,6 +4,10 @@ class DateTimeService {
     return new Date();
   }
 
+  fromTicks(ticks) {
+    return new Date(ticks);
+  }
+
   toDateString(date) {
     return date.toDateString();
   }

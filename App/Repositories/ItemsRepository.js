@@ -1,14 +1,36 @@
 import {Observable} from "rxjs/Observable";
 import guid from '../Lib/Guid';
 import db from './Db';
-
+import * as Tables from './SQL/Tables';
+import {DayItemModel} from '../Models';
+import dateTimeService from '../Services/DateTimeService';
 
 class ItemRepository {
   getDayItems(date) {
     const ticks = date.getTime();
 
-    return db.items
-      .find(i => !i.done && i.date.getTime() === ticks);
+    return db.store.executeSql(`SELECT * FROM ${Tables.Todos.name}
+      WHERE ${Tables.Todos.columns.done} = 0 AND ${Tables.Todos.columns.date} = (?)`,
+      [ticks]
+    ).map(resultSet => {
+      if (!resultSet.rows.length) {
+        return [];
+      }
+
+      let items = [];
+      for(let i = 0; i !== resultSet.rows.length; i++) {
+        let row = resultSet.rows.item(i);
+        let item = new DayItemModel();
+        item.id = row[Tables.Todos.columns.id];
+        item.name = row[Tables.Todos.columns.name];
+        item.importance = row[Tables.Todos.columns.importance];
+        item.date = dateTimeService.fromTicks(row[Tables.Todos.columns.date]);
+
+        items.push(item);
+      }
+
+      return items;
+    });
   }
 
   addItem(item) {
