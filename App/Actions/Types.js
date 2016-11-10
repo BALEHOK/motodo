@@ -8,6 +8,7 @@ export const goToPreviousDay = 'APP_GOTO_PREVIOUSDAY';
 
 export const fetchItems = 'DAYVIEW_ITEMS_FETCH';
 export const itemsFetched = 'DAYVIEW_ITEMS_FETCHED';
+export const dayViewAddItem = 'DAYVIEW_ADD_ITEM';
 
 export const itemAdded = 'ITEMS_ADDED';
 export const itemDelete = 'ITEMS_DELETE';

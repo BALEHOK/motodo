@@ -1,5 +1,5 @@
 import {Observable} from "rxjs/Observable";
-import guid from '../Lib/Guid';
+import guid from '../Utils/Guid';
 import db from './Db';
 import * as Tables from './SQL/Tables';
 import {DayItemModel} from '../Models';

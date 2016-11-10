@@ -8,20 +8,19 @@ import notificationManager from '../Services/NotificationManager';
 const addItem = (action$) =>
   action$.ofType(actionTypes.itemAdded)
     .map(action => action.item)
-    .mergeMap(item => {
-      return notificationManager.scheduleNotification(item)
-        .map(notifId => {
-          notifId && (item.notifId = notifId);
-          return item;
-        })
-        .mergeMap(itemsRepository.addItem)
+    .mergeMap(item => notificationManager
+      .scheduleNotification(item)
+      .map(notifId => {
+        notifId && (item.notifId = notifId);
+        return item;
+      })
+      .mergeMap(itemsRepository.addItem)
+      .mapTo(actionCreators.dummy())
+      .catch(() => notificationManager
+        .deleteNotification(item.notifId)
         .mapTo(actionCreators.dummy())
-        .catch((e) => {
-          console.log(e);
-          return notificationManager.deleteNotification(item.notifId)
-            .mapTo(actionCreators.dummy());
-        });
-    });
+      )
+    );
 
 const deleteItem = (action$) =>
   action$.ofType(actionTypes.itemDelete)
