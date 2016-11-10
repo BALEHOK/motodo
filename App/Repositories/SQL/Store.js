@@ -37,7 +37,7 @@ function initialise(db, onSuccess, onError) {
   db.transaction(
     function (tx) {
       // Dict table
-      tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Dict.name}`);
+      // tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Dict.name}`);
 
       tx.executeSql(`CREATE TABLE IF NOT EXISTS ${Tables.Dict.name} (
         ${Tables.Dict.columns.id} INTEGER primary key,
@@ -60,7 +60,7 @@ function initialise(db, onSuccess, onError) {
       );
 
       // Todos tabel
-      tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Todos.name}`);
+      // tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Todos.name}`);
 
       tx.executeSql(`CREATE TABLE IF NOT EXISTS ${Tables.Todos.name} (
         ${Tables.Todos.columns.id} TEXT primary key,

@@ -9,34 +9,37 @@ class ItemRepository {
   getDayItems(date) {
     const ticks = date.getTime();
 
-    return db.store.executeSql(`SELECT * FROM ${Tables.Todos.name}
-      WHERE ${Tables.Todos.columns.done} = 0 AND ${Tables.Todos.columns.date} = (?)`,
-      [ticks]
-    ).map(resultSet => {
-      if (!resultSet.rows.length) {
-        return [];
-      }
+    const sqlScript =
+    `SELECT * FROM ${Tables.Todos.name}
+      WHERE ${Tables.Todos.columns.done} = 0 AND ${Tables.Todos.columns.date} = (?)`;
 
-      let items = [];
-      for(let i = 0; i !== resultSet.rows.length; i++) {
-        let row = resultSet.rows.item(i);
-        let item = new DayItemModel();
-        item.id = row[Tables.Todos.columns.id];
-        item.name = row[Tables.Todos.columns.name];
-        item.importance = row[Tables.Todos.columns.importance];
-        item.date = dateTimeService.fromTicks(row[Tables.Todos.columns.date]);
+    return db.store.executeSql(sqlScript, [ticks])
+      .map(resultSet => {
+        if (!resultSet.rows.length) {
+          return [];
+        }
 
-        items.push(item);
-      }
+        let items = [];
+        for(let i = 0; i !== resultSet.rows.length; i++) {
+          let row = resultSet.rows.item(i);
+          let item = new DayItemModel();
+          item.id = row[Tables.Todos.columns.id];
+          item.name = row[Tables.Todos.columns.name];
+          item.importance = row[Tables.Todos.columns.importance];
+          item.date = dateTimeService.fromTicks(row[Tables.Todos.columns.date]);
 
-      return items;
+          items.push(item);
+        }
+
+        return items;
     });
   }
 
   addItem(item) {
     item.id = guid();
 
-    const sqlScript = `INSERT INTO ${Tables.Todos.name}
+    const sqlScript =
+    `INSERT INTO ${Tables.Todos.name}
       VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
 
     return db.store.executeSql(sqlScript, [
@@ -55,18 +58,19 @@ class ItemRepository {
   }
 
   deleteItem(itemId) {
-    return db.items.remove(i => i.id === itemId);
+    const sqlScript =
+    `DELETE FROM ${Tables.Todos.name}
+      WHERE ${Tables.Todos.columns.id} = (?)`;
+    return db.store.executeSql(sqlScript, [itemId]);
   }
 
   // !!! DANGEROUS !!! updating item by ref
   markDone(itemId) {
-    let item = db.items.findById(itemId);
-    if (item) {
-      item.done = true;
-      return db.items.persistStoreRx();
-    }
-
-    return Observable.from([null]);
+    const sqlScript =
+    `UPDATE ${Tables.Todos.name}
+      SET ${Tables.Todos.columns.done} = 1
+      WHERE ${Tables.Todos.columns.id} = (?)`;
+    return db.store.executeSql(sqlScript, [itemId]);
   }
 }
 

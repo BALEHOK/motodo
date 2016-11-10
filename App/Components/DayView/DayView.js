@@ -95,14 +95,6 @@ export default class DayView extends React.Component {
   onDone = () => {
     this.props.markDone(this.state.selected[0]);
     this.quitSelectionMode();
-
-    Notification.create({
-      subject: 'Notification With Payload',
-      message: 'This is a notification that contains custom payload.',
-      smallIcon: 'ic_launcher',
-      autoClear: true,
-      payload: { number: 1, what: true, someAnswer: '42' }
-    });
   }
 
   onDelete = () => {
