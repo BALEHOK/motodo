@@ -22,7 +22,6 @@ export class Todos {
     date: 'date',
     score: 'score',
     done: 'done',
-    counted: 'counted',
     repeatingItemRef: 'rep_id',
     notificationEnabled: 'notification',
     notificationWhen: 'notif_when',

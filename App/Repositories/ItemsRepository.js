@@ -35,7 +35,23 @@ class ItemRepository {
 
   addItem(item) {
     item.id = guid();
-    return db.items.add(item);
+
+    const sqlScript = `INSERT INTO ${Tables.Todos.name}
+      VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+
+    return db.store.executeSql(sqlScript, [
+      item.id,                                            // id
+      item.name,                                          // name
+      item.time || 0,                                     // time
+      item.importance,                                    // importance
+      item.date.getTime(),                                // date
+      0,                                                  // score
+      0,                                                  // done
+      '',                                                 // repeatingItemRef
+      item.notifEnabled,                                  // notificationEnabled
+      item.notifWhen ? item.notifWhen.getTime() : null,   // notificationWhen
+      item.notifId                                        // notificationId
+    ]);
   }
 
   deleteItem(itemId) {

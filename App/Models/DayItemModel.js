@@ -1,10 +1,11 @@
 export default class DayItemModel {
   id = undefined;
-  name = undefined;
-  importance = undefined;
+  name = '';
+  time = 0;
+  importance = 0;
   date = undefined;
-  done = undefined;
+  done = false;
   notifEnabled = false;
-  notifWhen = undefined;
-  notifId = undefined;
+  notifWhen = null;
+  notifId = null;
 }

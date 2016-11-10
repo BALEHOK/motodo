@@ -24,16 +24,14 @@ export default class AddItem extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      uvisibleHeight: Metrics.screenHeight,
-      item: this.getDefaultItemModel()
+      visibleHeight: Metrics.screenHeight,
+      item: this.getDefaultItemModel(props)
     };
   }
 
-  getDefaultItemModel() {
+  getDefaultItemModel(props) {
     var itemModel = new DayItemModel();
-    itemModel.name = '';
-    itemModel.importance = 0;
-    itemModel.date = this.props.defaultDate;
+    itemModel.date = props.defaultDate;
 
     return itemModel;
   }
@@ -52,6 +50,10 @@ export default class AddItem extends React.Component {
     // TODO: Revisit this if Android begins to support - https://github.com/facebook/react-native/issues/3468
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({item: this.getDefaultItemModel(nextProps)});
   }
 
   componentWillUnmount () {

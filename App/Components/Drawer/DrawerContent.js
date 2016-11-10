@@ -16,6 +16,11 @@ class DrawerContent extends Component {
     NavigationActions.dayView();
   }
 
+  goToMonthView = () => {
+    this.toggleDrawer();
+    console.log('not impemented yet');
+  }
+
   goToUndoneView = () => {
     this.toggleDrawer();
     NavigationActions.undoneView();
