@@ -26,6 +26,11 @@ class DrawerContent extends Component {
     NavigationActions.undoneView();
   }
 
+  goToGoalsView = () => {
+    this.toggleDrawer();
+    NavigationActions.goalsView();
+  }
+
   render () {
     return (
       <ScrollView style={styles.container}>
@@ -33,6 +38,7 @@ class DrawerContent extends Component {
         <DrawerButton text='Day' onPress={this.goToDayView} />
         <DrawerButton text='Month' onPress={this.goToMonthView} />
         <DrawerButton text='Undone' onPress={this.goToUndoneView} />
+        <DrawerButton text='Goals' onPress={this.goToGoalsView} />
       </ScrollView>
     );
   }

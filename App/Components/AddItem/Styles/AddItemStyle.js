@@ -40,4 +40,4 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: Colors.silver
   }
-})
+});
