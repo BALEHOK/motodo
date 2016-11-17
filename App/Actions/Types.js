@@ -13,3 +13,5 @@ export const dayViewAddItem = 'DAYVIEW_ADD_ITEM';
 export const itemAdded = 'ITEMS_ADDED';
 export const itemDelete = 'ITEMS_DELETE';
 export const itemDone = 'ITEMS_MARKDONE';
+
+export const goalsChanged = 'GOALS_CHANGED';

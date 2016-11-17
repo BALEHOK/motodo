@@ -10,19 +10,31 @@ import Styles from '../AddItem/Styles/AddItemStyle';
 
 export default class GoalsView extends React.Component {
   static propTypes = {
-    goals: PropTypes.arrayOf(React.PropTypes.string).isRequired
+    goal1: PropTypes.string,
+    goal2: PropTypes.string,
+    goal3: PropTypes.string
   }
 
-  handleChangeGoal1(){
+  constructor(props){
+    super(props);
 
+    this.state = {
+      goal1: props.goal1,
+      goal2: props.goal2,
+      goal3: props.goal3
+    };
   }
 
-  handleChangeGoal2(){
-
+  handleChangeGoal1(goal1){
+    this.setState({goal1});
   }
 
-  handleChangeGoal3(){
+  handleChangeGoal2(goal2){
+    this.setState({goal2});
+  }
 
+  handleChangeGoal3(goal3){
+    this.setState({goal3});
   }
 
   renderRow(index, changeHandler, value) {
@@ -30,7 +42,6 @@ export default class GoalsView extends React.Component {
       <View style={Styles.row}>
         <Text style={Styles.rowLabel}>{`Goal ${index}`}</Text>
         <TextInput
-          ref={`goal${index}`}
           style={Styles.textInput}
           value={value}
           keyboardType='default'
@@ -45,9 +56,9 @@ export default class GoalsView extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={Styles.container}>
-        {this.renderRow(1, this.handleChangeGoal1, 'bind db to these goals')}
-        {this.renderRow(2, this.handleChangeGoal2, 'bind db to these goals')}
-        {this.renderRow(3, this.handleChangeGoal3, 'bind db to these goals')}
+        {this.renderRow(1, this.handleChangeGoal1, this.state.goal1)}
+        {this.renderRow(2, this.handleChangeGoal2, this.state.goal2)}
+        {this.renderRow(3, this.handleChangeGoal3, this.state.goal3)}
       </ScrollView>
     );
   }
