@@ -12,7 +12,8 @@ export default class GoalsView extends React.Component {
   static propTypes = {
     goal1: PropTypes.string,
     goal2: PropTypes.string,
-    goal3: PropTypes.string
+    goal3: PropTypes.string,
+    goalsChanged: PropTypes.func
   }
 
   constructor(props){
@@ -37,6 +38,10 @@ export default class GoalsView extends React.Component {
     this.setState({goal3});
   }
 
+  saveGoals() {
+    this.props.goalsChanged(this.state);
+  }
+
   renderRow(index, changeHandler, value) {
     return (
       <View style={Styles.row}>
@@ -56,9 +61,15 @@ export default class GoalsView extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={Styles.container}>
-        {this.renderRow(1, this.handleChangeGoal1, this.state.goal1)}
-        {this.renderRow(2, this.handleChangeGoal2, this.state.goal2)}
-        {this.renderRow(3, this.handleChangeGoal3, this.state.goal3)}
+        <View style={Styles.row}>
+          {this.renderRow(1, this.handleChangeGoal1, this.state.goal1)}
+          {this.renderRow(2, this.handleChangeGoal2, this.state.goal2)}
+          {this.renderRow(3, this.handleChangeGoal3, this.state.goal3)}
+        </View>
+
+        <View style={Styles.row}>
+          <Button onPress={this.saveGoals}>Save</Button>
+        </View>
       </ScrollView>
     );
   }

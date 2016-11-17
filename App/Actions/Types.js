@@ -15,3 +15,4 @@ export const itemDelete = 'ITEMS_DELETE';
 export const itemDone = 'ITEMS_MARKDONE';
 
 export const goalsChanged = 'GOALS_CHANGED';
+export const goalsSaved = 'GOALS_SAVED';
