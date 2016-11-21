@@ -14,5 +14,6 @@ export const itemAdded = 'ITEMS_ADDED';
 export const itemDelete = 'ITEMS_DELETE';
 export const itemDone = 'ITEMS_MARKDONE';
 
+export const goalsViewLoaded = 'GOALS_VIEW_LOADED';
 export const goalsChanged = 'GOALS_CHANGED';
-export const goalsSaved = 'GOALS_SAVED';
+export const goalsLoaded = 'GOALS_LOADED';

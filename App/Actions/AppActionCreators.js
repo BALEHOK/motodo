@@ -14,5 +14,6 @@ export const itemsFetched = (items) => ({ type: types.itemsFetched, items });
 export const itemAdded = (item) => ({ type: types.dayViewAddItem, item });
 
 // Goals
+export const goalsViewLoaded = () => ({type: types.goalsViewLoaded});
 export const goalsChanged = (goals) => ({type: types.goalsChanged, goals});
-export const goalsSaved = (goals) => ({type: types.goalsSaved, goals});
+export const goalsLoaded = (goals) => ({type: types.goalsLoaded, goals});

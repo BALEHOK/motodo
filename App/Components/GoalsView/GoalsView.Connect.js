@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import GoalsView from './GoalsView';
-import { goalsChanged } from '../../Actions/AppActionCreators';
+import { goalsViewLoaded, goalsChanged } from '../../Actions/AppActionCreators';
 
 const mapStateToProps = (state) => {
   return state.goals;
 };
 
-export default connect(mapStateToProps, goalsChanged)(GoalsView);
+export default connect(mapStateToProps, {goalsViewLoaded, goalsChanged})(GoalsView);

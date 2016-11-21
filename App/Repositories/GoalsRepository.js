@@ -1,11 +1,12 @@
 import db from './Db';
 import * as Tables from './SQL/Tables';
 
+//была ошибка в колбеке. проверить, что сохраняется и потом правильно читается
 class GoalsRepository {
   getGoals() {
     const sqlScript =
     `SELECT ${Tables.Dict.columns.str} FROM ${Tables.Dict.name}
-      WHERE ${Tables.Todos.columns.id} = ${Tables.Todos.ids.goals}`;
+      WHERE ${Tables.Dict.columns.id} = ${Tables.Dict.ids.goals}`;
 
     return db.store.executeSql(sqlScript)
       .map(resultSet => {
@@ -26,7 +27,7 @@ class GoalsRepository {
   saveGoals(goals) {
     const sqlScript =
     `INSERT OR REPLACE INTO ${Tables.Dict.name}
-      VALUES (${Tables.Todos.ids.goals}, null, ${JSON.stringify(goals)})`;
+      VALUES (${Tables.Dict.ids.goals}, null, '${JSON.stringify(goals)}')`;
 
     return db.store.executeSql(sqlScript);
   }

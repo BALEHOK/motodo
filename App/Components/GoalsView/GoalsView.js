@@ -6,6 +6,7 @@ import {
   TextInput
 } from 'react-native';
 import Button from 'react-native-button';
+import { Actions as NavigationActions} from 'react-native-router-flux';
 
 import styles from '../AddItem/Styles/AddItemStyle';
 
@@ -14,8 +15,8 @@ export default class GoalsView extends React.Component {
     goal1: PropTypes.string,
     goal2: PropTypes.string,
     goal3: PropTypes.string,
-    goalsChanged: PropTypes.func
-  }
+    goalsChanged: PropTypes.func.isRequired
+  };
 
   constructor(props){
     super(props);
@@ -25,6 +26,10 @@ export default class GoalsView extends React.Component {
       goal2: props.goal2,
       goal3: props.goal3
     };
+
+    props.goalsViewLoaded();
+
+    console.log('GoalsView loaded');
   }
 
   handleChangeGoal1 = (goal1) => {
@@ -39,9 +44,11 @@ export default class GoalsView extends React.Component {
     this.setState({goal3});
   };
 
-  // тут валится все нахер
-  saveGoals() {
+  // тут вали.тся все нахер
+  saveGoals = () => {
     this.props.goalsChanged(this.state);
+
+    NavigationActions.pop();
   }
 
   renderRow(index, changeHandler, value) {

@@ -7,8 +7,6 @@ import AddItem from '../Components/AddItem';
 import UndoneView from '../Components/UndoneView';
 import GoalsView from '../Components/GoalsView';
 
-// screens identified by the router
-
 /***************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/

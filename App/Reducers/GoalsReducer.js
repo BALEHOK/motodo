@@ -12,7 +12,7 @@ class AppReducer extends Reducer {
     };
 
     this.actionMap = {
-      [types.goalsSaved]: 'updateGoals'
+      [types.goalsLoaded]: 'updateGoals'
     };
   }
 
