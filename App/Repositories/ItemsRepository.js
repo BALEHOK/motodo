@@ -63,7 +63,6 @@ class ItemRepository {
     return db.store.executeSql(sqlScript, [itemId]);
   }
 
-  // !!! DANGEROUS !!! updating item by ref
   markDone(itemId) {
     const sqlScript =
     `UPDATE ${Tables.Todos.name}

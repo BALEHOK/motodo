@@ -1,76 +1,35 @@
-import guid from '../Utils/Guid';
 import db from './Db';
 import * as Tables from './SQL/Tables';
-import {DayItemModel} from '../Models';
-import dateTimeService from '../Services/DateTimeService';
 
-class ItemRepository {
-  getDayItems(date) {
-    const ticks = date.getTime();
-
+class GoalsRepository {
+  getGoals() {
     const sqlScript =
-    `SELECT * FROM ${Tables.Todos.name}
-      WHERE ${Tables.Todos.columns.done} = 0 AND ${Tables.Todos.columns.date} = (?)`;
+    `SELECT ${Tables.Dict.columns.str} FROM ${Tables.Dict.name}
+      WHERE ${Tables.Todos.columns.id} = ${Tables.Todos.ids.goals}`;
 
-    return db.store.executeSql(sqlScript, [ticks])
+    return db.store.executeSql(sqlScript)
       .map(resultSet => {
         if (!resultSet.rows.length) {
-          return [];
+          return {
+            goal1: '',
+            goal2: '',
+            goal3: ''
+          };
         }
 
-        let items = [];
-        for(let i = 0; i !== resultSet.rows.length; i++) {
-          let row = resultSet.rows.item(i);
-          let item = new DayItemModel();
-          item.id = row[Tables.Todos.columns.id];
-          item.name = row[Tables.Todos.columns.name];
-          item.importance = row[Tables.Todos.columns.importance];
-          item.date = dateTimeService.fromTicks(row[Tables.Todos.columns.date]);
+        let goals = resultSet.rows.item(0).row[Tables.Dict.columns.str];
 
-          items.push(item);
-        }
-
-        return items;
+        return JSON.parse(goals);
     });
   }
 
-  addItem(item) {
-    item.id = guid();
-
+  saveGoals(goals) {
     const sqlScript =
-    `INSERT INTO ${Tables.Todos.name}
-      VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+    `INSERT OR REPLACE INTO ${Tables.Dict.name}
+      VALUES (${Tables.Todos.ids.goals}, null, ${JSON.stringify(goals)})`;
 
-    return db.store.executeSql(sqlScript, [
-      item.id,                                            // id
-      item.name,                                          // name
-      item.time || 0,                                     // time
-      item.importance,                                    // importance
-      item.date.getTime(),                                // date
-      0,                                                  // score
-      0,                                                  // done
-      '',                                                 // repeatingItemRef
-      item.notifEnabled,                                  // notificationEnabled
-      item.notifWhen ? item.notifWhen.getTime() : null,   // notificationWhen
-      item.notifId                                        // notificationId
-    ]);
-  }
-
-  deleteItem(itemId) {
-    const sqlScript =
-    `DELETE FROM ${Tables.Todos.name}
-      WHERE ${Tables.Todos.columns.id} = (?)`;
-    return db.store.executeSql(sqlScript, [itemId]);
-  }
-
-  // !!! DANGEROUS !!! updating item by ref
-  markDone(itemId) {
-    const sqlScript =
-    `UPDATE ${Tables.Todos.name}
-      SET ${Tables.Todos.columns.done} = 1
-      WHERE ${Tables.Todos.columns.id} = (?)`;
-    return db.store.executeSql(sqlScript, [itemId]);
+    return db.store.executeSql(sqlScript);
   }
 }
 
-export default new ItemRepository();
+export default new GoalsRepository();

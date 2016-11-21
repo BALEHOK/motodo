@@ -37,7 +37,7 @@ function initialise(db, onSuccess, onError) {
   db.transaction(
     function (tx) {
       // Dict table
-      // tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Dict.name}`);
+      tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Dict.name}`);
       tx.executeSql(`CREATE TABLE IF NOT EXISTS ${Tables.Dict.name} (
         ${Tables.Dict.columns.id} INTEGER primary key,
         ${Tables.Dict.columns.num} BIGINT NULL,
@@ -54,17 +54,15 @@ function initialise(db, onSuccess, onError) {
 
           if (!dbVersion) {
             tx.executeSql(`INSERT INTO ${Tables.Dict.name} VALUES (${Tables.Dict.ids.dbVersion}, 1, null)`);
-
-            убедиться, что правильно сложилась дата. починить создание таблицы dayScores. запилить методы репозитория гоулз
-            tx.executeSql(`INSERT INTO ${Tables.Dict.name} VALUES ("installed", ${new Date().getTime()}, null)`);
+            tx.executeSql(`INSERT INTO ${Tables.Dict.name} VALUES (${Tables.Dict.ids.installed}, ${new Date().getTime()}, null)`);
           }
         }
       );
 
-      db.execSQL("CREATE TABLE dayScores" +
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "date BIGINT NOT NULL," +
-                "score INTEGER NOT NULL);");
+      // tx.execSQL("CREATE TABLE dayScores" +
+      //           "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+      //           "date BIGINT NOT NULL," +
+      //           "score INTEGER NOT NULL);");
 
       // Todos tabel
       // tx.executeSql(`DROP TABLE IF EXISTS ${Tables.Todos.name}`);

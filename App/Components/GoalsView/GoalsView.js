@@ -5,8 +5,9 @@ import {
   Text,
   TextInput
 } from 'react-native';
+import Button from 'react-native-button';
 
-import Styles from '../AddItem/Styles/AddItemStyle';
+import styles from '../AddItem/Styles/AddItemStyle';
 
 export default class GoalsView extends React.Component {
   static propTypes = {
@@ -26,28 +27,29 @@ export default class GoalsView extends React.Component {
     };
   }
 
-  handleChangeGoal1(goal1){
+  handleChangeGoal1 = (goal1) => {
     this.setState({goal1});
-  }
+  };
 
-  handleChangeGoal2(goal2){
+  handleChangeGoal2 = (goal2) => {
     this.setState({goal2});
-  }
+  };
 
-  handleChangeGoal3(goal3){
+  handleChangeGoal3 = (goal3) => {
     this.setState({goal3});
-  }
+  };
 
+  // тут валится все нахер
   saveGoals() {
     this.props.goalsChanged(this.state);
   }
 
   renderRow(index, changeHandler, value) {
     return (
-      <View style={Styles.row}>
-        <Text style={Styles.rowLabel}>{`Goal ${index}`}</Text>
+      <View style={styles.row}>
+        <Text style={styles.rowLabel}>{`Goal ${index}`}</Text>
         <TextInput
-          style={Styles.textInput}
+          style={styles.textInput}
           value={value}
           keyboardType='default'
           returnKeyType='next'
@@ -60,14 +62,12 @@ export default class GoalsView extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={Styles.container}>
-        <View style={Styles.row}>
-          {this.renderRow(1, this.handleChangeGoal1, this.state.goal1)}
-          {this.renderRow(2, this.handleChangeGoal2, this.state.goal2)}
-          {this.renderRow(3, this.handleChangeGoal3, this.state.goal3)}
-        </View>
+      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={styles.container}>
+        {this.renderRow(1, this.handleChangeGoal1, this.state.goal1)}
+        {this.renderRow(2, this.handleChangeGoal2, this.state.goal2)}
+        {this.renderRow(3, this.handleChangeGoal3, this.state.goal3)}
 
-        <View style={Styles.row}>
+        <View style={styles.row}>
           <Button onPress={this.saveGoals}>Save</Button>
         </View>
       </ScrollView>
