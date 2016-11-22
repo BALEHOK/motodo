@@ -28,8 +28,14 @@ export default class GoalsView extends React.Component {
     };
 
     props.goalsViewLoaded();
+  }
 
-    console.log('GoalsView loaded');
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      goal1: nextProps.goal1,
+      goal2: nextProps.goal2,
+      goal3: nextProps.goal3
+    });
   }
 
   handleChangeGoal1 = (goal1) => {
@@ -44,7 +50,6 @@ export default class GoalsView extends React.Component {
     this.setState({goal3});
   };
 
-  // тут вали.тся все нахер
   saveGoals = () => {
     this.props.goalsChanged(this.state);
 

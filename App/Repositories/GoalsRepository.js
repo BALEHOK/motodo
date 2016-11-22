@@ -1,7 +1,6 @@
 import db from './Db';
 import * as Tables from './SQL/Tables';
 
-//была ошибка в колбеке. проверить, что сохраняется и потом правильно читается
 class GoalsRepository {
   getGoals() {
     const sqlScript =
@@ -18,7 +17,7 @@ class GoalsRepository {
           };
         }
 
-        let goals = resultSet.rows.item(0).row[Tables.Dict.columns.str];
+        let goals = resultSet.rows.item(0)[Tables.Dict.columns.str];
 
         return JSON.parse(goals);
     });
