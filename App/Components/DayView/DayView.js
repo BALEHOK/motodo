@@ -93,7 +93,8 @@ export default class DayView extends React.Component {
   }
 
   onDone = () => {
-    this.props.markDone(this.state.selected[0]);
+    let selectedId = this.state.selected[0];
+    this.props.markDone(this.props.items.find(i => i.id === selectedId));
     this.quitSelectionMode();
   }
 

@@ -29,7 +29,7 @@ const deleteItem = (action$) =>
 
 const markDone = (action$) =>
   action$.ofType(actionTypes.itemDone)
-    .mergeMap(action => itemsRepository.markDone(action.itemId))
+    .mergeMap(action => itemsRepository.markDone(action.item.id))
     .mapTo(actionCreators.dummy());
 
 

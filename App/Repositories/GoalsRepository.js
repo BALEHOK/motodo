@@ -30,6 +30,13 @@ class GoalsRepository {
 
     return db.store.executeSql(sqlScript);
   }
+
+  getScore(){
+    return 0;
+  }
+  saveScore(score){
+    return true;
+  }
 }
 
 export default new GoalsRepository();
