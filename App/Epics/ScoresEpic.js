@@ -15,7 +15,7 @@ const addScoresEpic = (action$) =>
       const itemScore = calcItemScore(item);
       return goalsRepository.getScore()
         .map(currentScore => {
-          const totalScore = currentScore + itemScore;
+          let totalScore = currentScore + itemScore;
 
           if (currentScore < rewardScore1 && totalScore >= rewardScore1) {
             console.log('reward 1 received');
@@ -27,9 +27,13 @@ const addScoresEpic = (action$) =>
 
           if (currentScore < rewardScore3 && totalScore >= rewardScore3) {
             console.log('reward 3 received');
+            totalScore -= rewardScore3;
           }
+
+          return totalScore;
         });
     })
+    .mergeMap(totalScore => goalsRepository.saveScore(totalScore))
     .map(actionCreators.dummy());
 
 function calcItemScore(item){
