@@ -12,6 +12,15 @@
 
 **Step 3:** Install the Application with `npm install`
 
+**Step 4:** Go to node_modules/babel-preset-react-native/configs/main.js and remove line 41: `require('../transforms/transform-symbol-member'),`. This is the conflict of current versions of rxjs 5.rc4 and babel (25/11/2016).
+
+**Step 5:** add:
+```java
+compile 'com.google.firebase:firebase-core:+'
+compile 'com.google.firebase:firebase-messaging:+'
+```
+into "node_modules/react-native-system-notification/android/build.gradle"
+
 
 ## :arrow_forward: How to Run App
 
