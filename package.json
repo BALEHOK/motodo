@@ -25,7 +25,7 @@
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-native": "^0.34.1",
+    "react-native": "^0.38.0",
     "react-native-action-button": "^2.0.5",
     "react-native-animatable": "^0.6.0",
     "react-native-button": "^1.7.1",
@@ -42,7 +42,6 @@
     "redux-logger": "^2.7.0",
     "redux-observable": "^0.12.1",
     "redux-persist": "^3.5.0",
-    "redux-thunk": "^2.1.0",
     "reduxsauce": "^0.2.0",
     "rxjs": "^5.0.0-rc.4",
     "seamless-immutable": "^6.1.3"

@@ -21,6 +21,8 @@ compile 'com.google.firebase:firebase-messaging:+'
 ```
 into "node_modules/react-native-system-notification/android/build.gradle"
 
+**Step 6:** you also might need to give 777 access rights to the file `\node_modules\react-native\android\com\facebook\react\react-native\0.38.0\react-native-0.38.0.aar`
+
 
 ## :arrow_forward: How to Run App
 
