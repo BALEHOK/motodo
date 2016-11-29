@@ -17,6 +17,7 @@ mockery.warnOnUnregistered(false);
 // I'm looking at you react-native-router-flux, reactotron etc!
 mockery.registerMock('reactotron', {});
 mockery.registerMock('../Repositories/ItemsRepository', {});
+mockery.registerMock('../Repositories/GoalsRepository', {});
 
 // Mock all images for React Native
 const originalLoader = m._load;

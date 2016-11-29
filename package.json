@@ -60,6 +60,7 @@
   "ava": {
     "files": [
       "Tests/**/*.js",
+      "!Tests/Mocks/**/*.js",
       "!Tests/Setup.js"
     ],
     "require": [
@@ -68,17 +69,5 @@
       "./Tests/Setup"
     ],
     "babel": "inherit"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "globals": [
-      "describe",
-      "it",
-      "fetch",
-      "navigator",
-      "__DEV__",
-      "XMLHttpRequest",
-      "FormData"
-    ]
   }
 }
