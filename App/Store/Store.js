@@ -7,7 +7,6 @@ import R from 'ramda';
 import Reactotron from 'reactotron';
 import RehydrationServices from '../Services/RehydrationServices';
 import ReduxPersist from '../Config/ReduxPersist';
-import thunkMiddleware from 'redux-thunk';
 import { createEpicMiddleware } from 'redux-observable';
 import rootEpic from '../Epics';
 
@@ -22,7 +21,6 @@ const logger = createLogger({
 });
 
 let middleware = [];
-middleware.push(thunkMiddleware);
 
 middleware.push(createEpicMiddleware(rootEpic));
 
