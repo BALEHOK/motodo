@@ -1,20 +1,22 @@
-// import mockery from 'mockery';
+import '../App/ObservableImports';
+import mockery from 'mockery';
 import m from 'module';
 
 // inject __DEV__ as it is not available when running through the tests
 global.__DEV__ = true;
 
 // We enable mockery and leave it on.
-// mockery.enable();
+mockery.enable();
 
 // Silence the warnings when *real* modules load... this is a change from
 // the norm.  We want to opt-in instead of opt-out because not everything
 // will be mocked.
-// mockery.warnOnUnregistered(false);
+mockery.warnOnUnregistered(false);
 
 // Mock any libs that get called in here
 // I'm looking at you react-native-router-flux, reactotron etc!
-// mockery.registerMock('reactotron', {});
+mockery.registerMock('reactotron', {});
+mockery.registerMock('../Repositories/ItemsRepository', {});
 
 // Mock all images for React Native
 const originalLoader = m._load;

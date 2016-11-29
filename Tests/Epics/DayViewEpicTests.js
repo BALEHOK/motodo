@@ -3,11 +3,11 @@ import { ActionsObservable } from 'redux-observable';
 import dayViewEpic from '../../App/Epics/DayViewEpic';
 import * as actionCreators from '../../App/Actions/AppActionCreators';
 
-test('watches for the right action', t => {
+test('shoul fetch items on startup', t => {
   const output = [];
   const action$ = ActionsObservable.of(actionCreators.startup());
-  dayViewEpic.fetchItemsEpic(action$)
+  dayViewEpic(action$)
     .subscribe(x => output.push(x));
-console.log(output, actionCreators.fetchItems());
+
   t.deepEqual(output, [actionCreators.fetchItems()]);
 });
