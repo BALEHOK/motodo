@@ -1,5 +1,6 @@
 import db from './Db';
 import * as Tables from './SQL/Tables';
+import {Observable} from 'rxjs/Observable';
 
 class GoalsRepository {
   getGoals() {
@@ -32,10 +33,11 @@ class GoalsRepository {
   }
 
   getScore(){
-    return 0;
+    return Observable.of(0);
   }
+  
   saveScore(score){
-    return true;
+    return Observable.of(true);
   }
 }
 

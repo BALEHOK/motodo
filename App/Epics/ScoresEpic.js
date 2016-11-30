@@ -34,7 +34,7 @@ const addScoresEpic = (action$) =>
         });
     })
     .mergeMap(totalScore => goalsRepository.saveScore(totalScore))
-    .map(actionCreators.dummy());
+    .mapTo(actionCreators.dummy());
 
 function calcItemScore(item){
   let score;
