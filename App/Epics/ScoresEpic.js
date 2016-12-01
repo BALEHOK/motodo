@@ -3,10 +3,12 @@ import { combineEpics } from 'redux-observable';
 import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import goalsRepository from '../Repositories/GoalsRepository';
+import alertService from '../Services/AlertService';
 
 const rewardScore1 = 9;
 const rewardScore2 = 26;
 const rewardScore3 = 50;
+const rewardAlertTitle = 'Goal reached';
 
 const addScoresEpic = (action$) =>
   action$.ofType(actionTypes.itemDone)
@@ -18,15 +20,15 @@ const addScoresEpic = (action$) =>
           let totalScore = currentScore + itemScore;
 
           if (currentScore < rewardScore1 && totalScore >= rewardScore1) {
-            console.log('reward 1 received');
+            alertService.alert(getRewardMessage('reward 1'), rewardAlertTitle);
           }
 
           if (currentScore < rewardScore2 && totalScore >= rewardScore2) {
-            console.log('reward 2 received');
+            alertService.alert(getRewardMessage('reward 2'), rewardAlertTitle);
           }
 
           if (currentScore < rewardScore3 && totalScore >= rewardScore3) {
-            console.log('reward 3 received');
+            alertService.alert(getRewardMessage('reward 3'), rewardAlertTitle);
             totalScore -= rewardScore3;
           }
 
@@ -35,6 +37,10 @@ const addScoresEpic = (action$) =>
     })
     .mergeMap(totalScore => goalsRepository.saveScore(totalScore))
     .mapTo(actionCreators.dummy());
+
+function getRewardMessage(reward) {
+  return `Your reward is: ${reward}`;
+}
 
 function calcItemScore(item){
   let score;

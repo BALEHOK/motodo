@@ -6,41 +6,51 @@ import scoresEpic from '../../App/Epics/ScoresEpic';
 import * as itemsActionCreators from '../../App/Actions/ItemsActionCreators';
 
 import scoresRepoMock from '../Repositories/GoalsRepository';
+import alertServiceMock from '../Services/AlertService';
 
-test.before(() =>
-  scoresRepoMock.saveScore = () => {
+const item = {time: 3, importance: 1};
+let alertSpy;
+
+test.before(() => {
+  scoresRepoMock.totalScore = 0;
+
+  scoresRepoMock.saveScore = function() {
     return Observable.of(true);
-  }
-);
+  };
 
-test('no reword received', t => {
-  scoresRepoMock.getScore = () => Observable.of(2);
-  const action$ = ActionsObservable.of(itemsActionCreators.markDone({time: 1, importance: 0}));
+  scoresRepoMock.getScore = function() {
+    return Observable.of(this.totalScore);
+  };
 
-  return scoresEpic(action$)
-    .subscribe(() => t.pass());
+  alertSpy = sinon.spy(alertServiceMock, 'alert');
 });
 
-test('reword 1 received', t => {
-  scoresRepoMock.getScore = () => Observable.of(8);
-  const action$ = ActionsObservable.of(itemsActionCreators.markDone({time: 1, importance: 0}));
+test.afterEach(() => alertSpy.reset());
+
+test('no alert if no reward received', t => {
+  scoresRepoMock.totalScore = 2;
+  const action$ = ActionsObservable.of(itemsActionCreators.markDone(item));
 
   return scoresEpic(action$)
-    .subscribe(() => t.pass());
+    .subscribe(() => t.false(alertSpy.called));
 });
 
-test('reword 2 received', t => {
-  scoresRepoMock.getScore = () => Observable.of(25);
-  const action$ = ActionsObservable.of(itemsActionCreators.markDone({time: 1, importance: 0}));
+function rewardsMacro(t, totalScore, message) {
+  scoresRepoMock.totalScore = totalScore;
+  const action$ = ActionsObservable.of(itemsActionCreators.markDone(item));
 
   return scoresEpic(action$)
-    .subscribe(() => t.pass());
-});
+    .subscribe(() => t.true(alertSpy.calledWith(message)));
+}
 
-test('reword 3 received', t => {
+test('should alert reward 1', rewardsMacro, 8, 'Your reward is: reward 1');
+test('should alert reward 2', rewardsMacro, 25, 'Your reward is: reward 2');
+test('should alert reward 3', rewardsMacro, 49, 'Your reward is: reward 3');
+
+test('scores are reseted after getting reward 3', t => {
   let spy = sinon.spy(scoresRepoMock, 'saveScore');
   scoresRepoMock.getScore = () => Observable.of(49);
-  const action$ = ActionsObservable.of(itemsActionCreators.markDone({time: 3, importance: 1}));
+  const action$ = ActionsObservable.of(itemsActionCreators.markDone(item));
 
   return scoresEpic(action$)
     .subscribe(() => t.true(spy.calledWith(2)));
