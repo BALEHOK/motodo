@@ -1,4 +1,5 @@
 import { combineEpics } from 'redux-observable';
+import { Observable } from 'rxjs/Observable';
 
 import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
@@ -10,7 +11,7 @@ const rewardScore2 = 26;
 const rewardScore3 = 50;
 const rewardAlertTitle = 'Goal reached';
 
-const addScoresEpic = (action$) =>
+const onItemDone = (action$, store) =>
   action$.ofType(actionTypes.itemDone)
     .mergeMap(action => {
       const item = action.item;
@@ -20,15 +21,15 @@ const addScoresEpic = (action$) =>
           let totalScore = currentScore + itemScore;
 
           if (currentScore < rewardScore1 && totalScore >= rewardScore1) {
-            alertService.alert(getRewardMessage('reward 1'), rewardAlertTitle);
+            store.dispatch(actionCreators.goalReached(1));
           }
 
           if (currentScore < rewardScore2 && totalScore >= rewardScore2) {
-            alertService.alert(getRewardMessage('reward 2'), rewardAlertTitle);
+            store.dispatch(actionCreators.goalReached(2));
           }
 
           if (currentScore < rewardScore3 && totalScore >= rewardScore3) {
-            alertService.alert(getRewardMessage('reward 3'), rewardAlertTitle);
+            store.dispatch(actionCreators.goalReached(3));
             totalScore -= rewardScore3;
           }
 
@@ -36,6 +37,21 @@ const addScoresEpic = (action$) =>
         });
     })
     .mergeMap(totalScore => goalsRepository.saveScore(totalScore))
+    .mapTo(actionCreators.dummy());
+
+const onGoalReached = (action$, store) =>
+  action$.ofType(actionTypes.goalReached)
+    .mergeMap(action => {
+      const goalProp = 'goal' + action.goalNum;
+      let goals = store.getState().goals;
+      if (goals && goals[goalProp]){
+        return Observable.of(goals[goalProp]);
+      }
+
+      return goalsRepository.getGoals()
+        .map(goals => goals[goalProp]);
+    })
+    .map(rewardMessage => alertService.alert(getRewardMessage(rewardMessage), rewardAlertTitle))
     .mapTo(actionCreators.dummy());
 
 function getRewardMessage(reward) {
@@ -70,5 +86,6 @@ function calcItemScore(item){
 }
 
 export default combineEpics(
-  addScoresEpic
+  onItemDone,
+  onGoalReached
 );

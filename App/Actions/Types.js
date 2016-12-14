@@ -17,3 +17,4 @@ export const itemDone = 'ITEMS_MARKDONE';
 export const goalsViewLoaded = 'GOALS_VIEW_LOADED';
 export const goalsChanged = 'GOALS_CHANGED';
 export const goalsLoaded = 'GOALS_LOADED';
+export const goalReached = 'GOAL_REACHED';
