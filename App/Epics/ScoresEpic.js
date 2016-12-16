@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import goalsRepository from '../Repositories/GoalsRepository';
+import dictRepository from '../Repositories/DictRepository';
 import alertService from '../Services/AlertService';
 
 const rewardScore1 = 9;
@@ -11,12 +12,19 @@ const rewardScore2 = 26;
 const rewardScore3 = 50;
 const rewardAlertTitle = 'Goal reached';
 
+function getScore() {
+  return dictRepository.getNum('score');
+}
+function saveScore(score) {
+  return dictRepository.saveNum('score', score);
+}
+
 const onItemDone = (action$, store) =>
   action$.ofType(actionTypes.itemDone)
     .mergeMap(action => {
       const item = action.item;
       const itemScore = calcItemScore(item);
-      return goalsRepository.getScore()
+      return getScore()
         .map(currentScore => {
           let totalScore = currentScore + itemScore;
 
@@ -36,7 +44,7 @@ const onItemDone = (action$, store) =>
           return totalScore;
         });
     })
-    .mergeMap(totalScore => goalsRepository.saveScore(totalScore))
+    .mergeMap(totalScore => saveScore(totalScore))
     .mapTo(actionCreators.dummy());
 
 const onGoalReached = (action$, store) =>

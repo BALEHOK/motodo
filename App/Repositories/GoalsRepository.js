@@ -31,14 +31,6 @@ class GoalsRepository {
 
     return db.store.executeSql(sqlScript);
   }
-
-  getScore(){
-    return Observable.of(0);
-  }
-  
-  saveScore(score){
-    return Observable.of(true);
-  }
 }
 
 export default new GoalsRepository();

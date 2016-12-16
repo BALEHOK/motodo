@@ -18,6 +18,7 @@ mockery.warnOnUnregistered(false);
 mockery.registerMock('reactotron', {});
 mockery.registerMock('../Repositories/ItemsRepository', {});
 mockery.registerMock('../Repositories/GoalsRepository', {});
+mockery.registerMock('../Repositories/DictRepository', {});
 mockery.registerMock('../Services/AlertService', {alert: () => true});
 
 // Mock all images for React Native
