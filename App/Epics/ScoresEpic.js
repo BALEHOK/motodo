@@ -8,7 +8,7 @@ import dictRepository from '../Repositories/DictRepository';
 import { Dict as DictTable } from '../Repositories/SQL/Tables';
 import alertService from '../Services/AlertService';
 
-const rewardScore1 = 9;
+const rewardScore1 = 3;
 const rewardScore2 = 26;
 const rewardScore3 = 50;
 const rewardAlertTitle = 'Goal reached';
@@ -28,7 +28,6 @@ const onItemDone = (action$, store) =>
       return getScore()
         .map(currentScore => {
           let totalScore = currentScore + itemScore;
-
           if (currentScore < rewardScore1 && totalScore >= rewardScore1) {
             store.dispatch(actionCreators.goalReached(1));
           }

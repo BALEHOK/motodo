@@ -5,9 +5,9 @@ class DictRepository {
   getNum(key){
     const sqlScript =
       `SELECT ${Tables.Dict.columns.num} FROM ${Tables.Dict.name}
-        WHERE ${Tables.Dict.columns.id} = ?`;
+        WHERE ${Tables.Dict.columns.id} = (?)`;
 
-    db.store.executeSql(sqlScript, key)
+    return db.store.executeSql(sqlScript, [key])
       .map(resultSet => {
         if (!resultSet.rows.length) {
           return 0;
