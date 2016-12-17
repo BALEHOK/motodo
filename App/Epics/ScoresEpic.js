@@ -5,6 +5,7 @@ import * as actionTypes from '../Actions/Types';
 import * as actionCreators from '../Actions/AppActionCreators';
 import goalsRepository from '../Repositories/GoalsRepository';
 import dictRepository from '../Repositories/DictRepository';
+import { Dict as DictTable } from '../Repositories/SQL/Tables';
 import alertService from '../Services/AlertService';
 
 const rewardScore1 = 9;
@@ -13,10 +14,10 @@ const rewardScore3 = 50;
 const rewardAlertTitle = 'Goal reached';
 
 function getScore() {
-  return dictRepository.getNum('score');
+  return dictRepository.getNum(DictTable.ids.scores);
 }
 function saveScore(score) {
-  return dictRepository.saveNum('score', score);
+  return dictRepository.saveNum(DictTable.ids.scores, score);
 }
 
 const onItemDone = (action$, store) =>

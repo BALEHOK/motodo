@@ -6,6 +6,8 @@ import scoresEpic from '../../App/Epics/ScoresEpic';
 import * as appActionCreators from '../../App/Actions/AppActionCreators';
 import * as itemsActionCreators from '../../App/Actions/ItemsActionCreators';
 
+import { Dict } from '../../App/Repositories/SQL/Tables';
+
 import goalsRepoMock from '../Repositories/GoalsRepository';
 import dictRepoMock from '../Repositories/DictRepository';
 import alertServiceMock from '../Services/AlertService';
@@ -24,13 +26,12 @@ test.before(() => {
     return Observable.of(testGoals);
   };
 
-
-    dictRepoMock.totalScore = 0;
-  dictRepoMock.saveScore = function() {
+  dictRepoMock.totalScore = 0;
+  dictRepoMock.saveNum = function() {
     return Observable.of(true);
   };
 
-  dictRepoMock.getScore = function() {
+  dictRepoMock.getNum = function() {
     return Observable.of(this.totalScore);
   };
 
@@ -75,12 +76,13 @@ test('should fetch reward from state if possible', t => {
 });
 
 test('scores are reseted after getting reward 3', t => {
-  let spy = sinon.spy(dictRepoMock, 'saveScore');
-  dictRepoMock.getScore = () => Observable.of(49);
+  let spy = sinon.spy(dictRepoMock, 'saveNum');
+  dictRepoMock.totalScore = 49;
+  
   const action$ = ActionsObservable.of(itemsActionCreators.markDone(item));
 
   return scoresEpic(action$, storeMock)
-    .subscribe(() => t.true(spy.calledWith(2)));
+    .subscribe(() => t.true(spy.calledWith(Dict.ids.scores, 2)));
 });
 
 function riseRewardActionMacro(t, totalScore, goalNum) {

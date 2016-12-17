@@ -10,8 +10,8 @@ export class Dict {
   static ids = {
     dbVersion: 1,
     installed: 2,
-    goals: 11 // stored as json,
-    scores: 
+    goals: 11, // stored as json
+    scores: 21
   }
 }
 export class Todos {
